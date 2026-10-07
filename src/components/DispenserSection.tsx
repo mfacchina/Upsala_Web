@@ -2,7 +2,6 @@
 
 import { motion } from "motion/react";
 import { Bubbles, WaveDivider } from "./illustrations/Decor";
-import { Dispenser } from "./illustrations/Dispenser";
 import { Check, Reveal, SectionHeading } from "./ui";
 import { DISPENSER } from "@/lib/content";
 import { asset } from "@/lib/site";
@@ -74,18 +73,13 @@ export function DispenserSection() {
 
         <Reveal className="relative mx-auto w-full max-w-sm">
           <div className="absolute inset-x-10 bottom-6 h-14 rounded-full bg-brand-500/40 blur-2xl" aria-hidden />
-          <div className="relative grid grid-cols-[1fr_auto] items-end gap-4">
-            {/* foto real del dispenser */}
-            <motion.div whileHover={{ y: -6 }} className="relative rounded-[2rem] bg-white/5 p-5 ring-1 ring-white/10 backdrop-blur">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={asset("/img/dispenser.png")} alt="Dispenser frío/calor" className="mx-auto h-72 w-auto object-contain drop-shadow-[0_30px_40px_rgba(0,0,0,0.45)] sm:h-80" />
-              <span className="absolute left-4 top-4 rounded-full bg-sun px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-ink-900">Comodato</span>
-            </motion.div>
-            {/* ilustracion animada: gotea y llena el vaso */}
-            <div className="w-24 sm:w-28">
-              <Dispenser className="w-full" level={0.7} />
-            </div>
-          </div>
+          {/* foto real del dispenser */}
+          <motion.div whileHover={{ y: -6 }} className="relative rounded-[2rem] bg-white/5 p-6 ring-1 ring-white/10 backdrop-blur">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={asset("/img/dispenser.png")} alt="Dispenser frío/calor" className="mx-auto h-80 w-auto object-contain drop-shadow-[0_30px_40px_rgba(0,0,0,0.45)] sm:h-[26rem]" />
+            <span className="absolute left-5 top-5 rounded-full bg-sun px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-ink-900">Comodato</span>
+            <span className="absolute bottom-5 right-5 rounded-full bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white/80 ring-1 ring-white/15">Con bidón de 20 L</span>
+          </motion.div>
           <div className="mt-6 flex items-center justify-center gap-6 text-xs text-white/60">
             <span className="inline-flex items-center gap-2"><span className="h-3 w-3 rounded-full bg-brand-400" /> Agua fría</span>
             <span className="inline-flex items-center gap-2"><span className="h-3 w-3 rounded-full bg-red-500" /> Agua caliente</span>
