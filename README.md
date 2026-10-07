@@ -19,10 +19,12 @@ Reemplaza al sitio de Canva de **https://upsala.com.ar/**.
 
 El formulario no guarda nada acá: llama a la API pública de la app (app-upsala):
 
-- `GET  {API_URL}/api/public/registro` → barrios con cobertura (las `Locality` activas) y productos.
+- `GET  {API_URL}/api/public/registro` → los 48 barrios de CABA con su cobertura, las otras localidades con cobertura y los productos.
 - `POST {API_URL}/api/public/registro` → crea el registro, que aparece en **Clientes > Nuevos Web** con canal `WEB`.
 
 Al elegir el barrio se le dice a la persona al instante si hay cobertura. Si no la hay, igual puede dejar sus datos y queda marcado como "Sin cobertura" en la app. Los revendedores entran por el mismo canal con tipo `RESELLER`.
+
+**Cómo se decide la cobertura** (en la app, no acá): un barrio o localidad tiene cobertura si coincide con una *Localidad activa* de la app (Ajustes > Localidades), o si es un barrio de CABA y la localidad "Ciudad de Buenos Aires" está activa. Hoy están activas "Ciudad de Buenos Aires" y "San Martín", así que todos los barrios de CABA y San Martín aparecen con cobertura. Para acotar la cobertura dentro de CABA: desactivar la localidad CABA y cargar como localidades los barrios que sí se atienden. Si la API no responde, el formulario ofrece igual los barrios de CABA con cobertura "a confirmar".
 
 `API_URL` es `https://upsala.aquacontrol.aginet.com.ar` salvo que se defina `NEXT_PUBLIC_API_URL` al buildear. La API acepta llamadas solo desde los orígenes del sitio (`PUBLIC_SITE_ORIGINS` en el `.env` de la app si se agrega un dominio nuevo).
 

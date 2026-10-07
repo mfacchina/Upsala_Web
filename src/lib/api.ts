@@ -1,11 +1,22 @@
 // Cliente de la API publica de la app de gestion (app-upsala):
-//   GET  {API_URL}/api/public/registro -> { zones: string[], products: string[] }
+//   GET  {API_URL}/api/public/registro -> { barrios: {name, covered}[], zones: string[], products: string[] }
 //   POST {API_URL}/api/public/registro -> { ok, id, covered } | { error, field }
 import { API_URL } from "./site";
+import { CABA_BARRIOS } from "./barrios";
 
 const ENDPOINT = `${API_URL}/api/public/registro`;
 
-export type FormOptions = { zones: string[]; products: string[] };
+export type Barrio = { name: string; covered: boolean | null };
+
+export type FormOptions = {
+  /** Barrios de CABA con su cobertura. */
+  barrios: Barrio[];
+  /** Otras localidades/zonas con cobertura (conurbano, etc.). */
+  zones: string[];
+  products: string[];
+  /** false = la API no respondio y la cobertura no se pudo verificar. */
+  live: boolean;
+};
 
 export type RegistrationPayload = {
   kind: "CLIENT" | "RESELLER";
@@ -37,20 +48,33 @@ export class ApiError extends Error {
   }
 }
 
+const FALLBACK: FormOptions = {
+  barrios: CABA_BARRIOS.map((name) => ({ name, covered: null })),
+  zones: [],
+  products: [],
+  live: false,
+};
+
 let optionsCache: Promise<FormOptions> | null = null;
 
-/** Zonas con cobertura y productos. Si la API no responde, devuelve listas vacias. */
+/** Barrios/zonas con cobertura y productos. Si la API no responde, los barrios sin cobertura conocida. */
 export function fetchFormOptions(): Promise<FormOptions> {
   if (!optionsCache) {
     optionsCache = fetch(ENDPOINT, { headers: { Accept: "application/json" } })
       .then(async (r) => {
         if (!r.ok) throw new Error(String(r.status));
         const data = (await r.json()) as Partial<FormOptions>;
-        return { zones: data.zones ?? [], products: data.products ?? [] };
+        const barrios = (data.barrios ?? []).filter((b) => b && typeof b.name === "string");
+        return {
+          barrios: barrios.length ? barrios : FALLBACK.barrios,
+          zones: data.zones ?? [],
+          products: data.products ?? [],
+          live: barrios.length > 0,
+        };
       })
       .catch(() => {
         optionsCache = null;
-        return { zones: [], products: [] };
+        return FALLBACK;
       });
   }
   return optionsCache;
@@ -84,11 +108,17 @@ export function normalizeName(s: string) {
     .trim();
 }
 
-/** Busca el barrio elegido entre las zonas con cobertura. */
-export function matchZone(zones: string[], name: string): string | null {
+/**
+ * Cobertura de un barrio/localidad escrito a mano: true/false si la API respondio,
+ * null si no se puede saber.
+ */
+export function coverageFor(options: FormOptions, name: string): boolean | null {
   const n = normalizeName(name);
   if (!n) return null;
-  return zones.find((z) => normalizeName(z) === n) ?? null;
+  const barrio = options.barrios.find((b) => normalizeName(b.name) === n);
+  if (barrio) return barrio.covered;
+  if (options.zones.some((z) => normalizeName(z) === n)) return true;
+  return options.live ? false : null;
 }
 
 const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "gclid"];

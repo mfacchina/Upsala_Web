@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { WhatsAppIcon } from "./ui";
 import { REGISTER } from "@/lib/content";
 import { WHATSAPP_URL } from "@/lib/site";
-import { ApiError, fetchFormOptions, getSource, matchZone, submitRegistration, trackLead, type RegistrationPayload } from "@/lib/api";
+import { ApiError, coverageFor, fetchFormOptions, getSource, submitRegistration, trackLead, type FormOptions, type RegistrationPayload } from "@/lib/api";
 
 const OTHER = "__otro__";
 
@@ -14,7 +14,7 @@ type Form = {
   lastName: string;
   phone: string;
   email: string;
-  zone: string; // valor del select: una zona, OTHER o ""
+  zone: string; // valor del select: un barrio/localidad, OTHER o ""
   otherZone: string;
   address: string;
   propertyType: "HOUSE" | "APARTMENT";
@@ -47,14 +47,14 @@ type Coverage = "idle" | "covered" | "not-covered" | "unknown";
 
 export function RegisterForm({ compact = false }: { compact?: boolean }) {
   const [form, setForm] = useState<Form>(EMPTY);
-  const [zones, setZones] = useState<string[] | null>(null); // null = cargando
+  const [options, setOptions] = useState<FormOptions | null>(null); // null = cargando
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<{ message: string; field: string | null } | null>(null);
   const [done, setDone] = useState<{ covered: boolean | null } | null>(null);
 
   useEffect(() => {
     let alive = true;
-    fetchFormOptions().then((o) => alive && setZones(o.zones));
+    fetchFormOptions().then((o) => alive && setOptions(o));
     return () => {
       alive = false;
     };
@@ -64,11 +64,10 @@ export function RegisterForm({ compact = false }: { compact?: boolean }) {
 
   const neighborhood = form.zone === OTHER ? form.otherZone.trim() : form.zone;
   const coverage: Coverage = useMemo(() => {
-    if (!neighborhood) return "idle";
-    if (!zones || zones.length === 0) return "unknown";
-    if (form.zone !== OTHER) return "covered";
-    return matchZone(zones, neighborhood) ? "covered" : "not-covered";
-  }, [form.zone, neighborhood, zones]);
+    if (!neighborhood || !options) return "idle";
+    const c = coverageFor(options, neighborhood);
+    return c === true ? "covered" : c === false ? "not-covered" : "unknown";
+  }, [neighborhood, options]);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -81,7 +80,6 @@ export function RegisterForm({ compact = false }: { compact?: boolean }) {
       setError({ message: "Elegí tu barrio para saber si tenemos cobertura.", field: "zone" });
       return;
     }
-    const locality = zones ? matchZone(zones, neighborhood) : null;
     const payload: RegistrationPayload = {
       kind: "CLIENT",
       firstName: form.firstName.trim(),
@@ -93,7 +91,6 @@ export function RegisterForm({ compact = false }: { compact?: boolean }) {
       floor: form.floor.trim() || undefined,
       apartment: form.apartment.trim() || undefined,
       neighborhood,
-      locality: locality ?? undefined,
       covered: coverage === "covered" ? true : coverage === "not-covered" ? false : null,
       requestedProduct: form.product || undefined,
       visitTimePreference: form.visit,
@@ -136,6 +133,8 @@ export function RegisterForm({ compact = false }: { compact?: boolean }) {
     );
   }
 
+  const loading = options === null;
+
   return (
     <form onSubmit={submit} className="space-y-6" noValidate>
       {/* 1. barrio primero: cobertura al instante */}
@@ -144,14 +143,27 @@ export function RegisterForm({ compact = false }: { compact?: boolean }) {
           Tu barrio <span className="text-brand-600">*</span>
         </label>
         <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
-          <select id="zone" className="field" value={form.zone} onChange={(e) => set("zone", e.target.value)} disabled={zones === null}>
-            <option value="">{zones === null ? "Cargando barrios..." : "Elegí tu barrio"}</option>
-            {zones?.map((z) => (
-              <option key={z} value={z}>
-                {z}
-              </option>
-            ))}
-            <option value={OTHER}>{zones && zones.length ? "Mi barrio no está en la lista" : "Escribir mi barrio"}</option>
+          <select id="zone" className="field" value={form.zone} onChange={(e) => set("zone", e.target.value)} disabled={loading}>
+            <option value="">{loading ? "Cargando barrios..." : "Elegí tu barrio"}</option>
+            {options && (
+              <optgroup label="Ciudad de Buenos Aires">
+                {options.barrios.map((b) => (
+                  <option key={b.name} value={b.name}>
+                    {b.name}
+                  </option>
+                ))}
+              </optgroup>
+            )}
+            {options && options.zones.length > 0 && (
+              <optgroup label="Otras localidades">
+                {options.zones.map((z) => (
+                  <option key={z} value={z}>
+                    {z}
+                  </option>
+                ))}
+              </optgroup>
+            )}
+            <option value={OTHER}>Mi barrio o localidad no está en la lista</option>
           </select>
           <AnimatePresence mode="wait">
             {coverage !== "idle" && (
