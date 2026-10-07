@@ -1,0 +1,6 @@
+# dependencias y salidas de build de la landing (el .gitignore de la raiz solo cubre la raiz)
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts

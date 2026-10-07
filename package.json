@@ -1,0 +1,28 @@
+{
+  "name": "upsala-web",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Sitio web de Upsala BA, agua mineral natural a domicilio. Sitio estatico independiente de la app de gestion.",
+  "scripts": {
+    "dev": "next dev --webpack -p 3400",
+    "build": "next build --webpack",
+    "preview": "node scripts/serve-out.mjs",
+    "typecheck": "tsc --noEmit",
+    "og": "node scripts/og.mjs"
+  },
+  "dependencies": {
+    "motion": "^14.0.0",
+    "next": "^16.1.6",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^26.6.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "puppeteer-core": "^24.0.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.0"
+  }
+}

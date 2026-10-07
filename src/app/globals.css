@@ -1,0 +1,191 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-outfit), var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  /* Azul del logo de Upsala (#1b3f5e) y su familia */
+  --color-ink-950: #06182a;
+  --color-ink-900: #0c2640;
+  --color-ink-800: #123354;
+  --color-ink-700: #1b3f5e;
+
+  --color-brand-900: #163b62;
+  --color-brand-800: #1b4a7a;
+  --color-brand-700: #1f5c99;
+  --color-brand-600: #2470ba;
+  --color-brand-500: #2f87d6;
+  --color-brand-400: #58a6e8;
+  --color-brand-300: #8cc4f2;
+  --color-brand-200: #bfdff9;
+  --color-brand-100: #e2f0fc;
+  --color-brand-50: #f2f8fe;
+
+  --color-aqua-500: #19b4d9;
+  --color-aqua-400: #3cc9e8;
+  --color-aqua-300: #7adcf0;
+  --color-aqua-200: #b4ecf7;
+
+  --color-foam: #f5fafe;
+  --color-wa: #25d366;
+  --color-wa-dark: #128c7e;
+  --color-sun: #f6b73c;
+
+  --shadow-glow: 0 0 80px -16px rgba(47, 135, 214, 0.55);
+  --shadow-card: 0 10px 30px -12px rgba(12, 38, 64, 0.22);
+  --shadow-float: 0 40px 80px -30px rgba(12, 38, 64, 0.45);
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 9s ease-in-out infinite;
+  --animate-bubble: bubble 10s linear infinite;
+  --animate-wave: wave 7s linear infinite;
+  --animate-wave-slow: wave 11s linear infinite reverse;
+  --animate-drip: drip 2.6s ease-in infinite;
+  --animate-rain: rain 4s linear infinite;
+  --animate-pulse-soft: pulseSoft 2.4s ease-in-out infinite;
+  --animate-marquee: marquee 40s linear infinite;
+  --animate-shimmer: shimmer 2.8s linear infinite;
+  --animate-bubble-small: bubbleSmall 2.8s ease-in infinite;
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+  @keyframes bubble {
+    0% { transform: translateY(0) scale(0.6); opacity: 0; }
+    10% { opacity: 0.7; }
+    90% { opacity: 0.4; }
+    100% { transform: translateY(-110vh) scale(1.1); opacity: 0; }
+  }
+  @keyframes wave {
+    from { transform: translateX(0); }
+    to { transform: translateX(-200px); }
+  }
+  @keyframes drip {
+    0% { transform: translateY(0) scaleY(0.6); opacity: 0; }
+    15% { opacity: 1; transform: translateY(2px) scaleY(1); }
+    80% { opacity: 1; }
+    100% { transform: translateY(44px) scaleY(1.1); opacity: 0; }
+  }
+  @keyframes rain {
+    0% { transform: translateY(-10%); opacity: 0; }
+    10% { opacity: 0.9; }
+    100% { transform: translateY(110vh); opacity: 0; }
+  }
+  @keyframes bubbleSmall {
+    0% { transform: translateY(0); opacity: 0; }
+    15% { opacity: 0.9; }
+    100% { transform: translateY(-120px); opacity: 0; }
+  }
+  @keyframes pulseSoft {
+    0%, 100% { opacity: 0.55; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.06); }
+  }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes shimmer {
+    from { transform: translateX(-120%) skewX(-18deg); }
+    to { transform: translateX(220%) skewX(-18deg); }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    @apply bg-foam text-ink-900 antialiased;
+    font-feature-settings: "ss01", "cv11";
+  }
+  ::selection {
+    background: color-mix(in oklab, var(--color-brand-400) 45%, white);
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+  /* Sin JavaScript (o si todavia no cargo), nada queda invisible: las animaciones de entrada
+     arrancan con opacity 0 en linea y este override las muestra. Con JS, <html class="js">
+     y manda la animacion. */
+  html:not(.js) [style*="opacity:0"],
+  html:not(.js) [style*="opacity: 0"] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@utility container-x {
+  @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3.5 text-base font-semibold transition-all duration-200 will-change-transform;
+  @apply focus:outline-none focus-visible:ring-4 focus-visible:ring-brand-300/60;
+}
+
+@utility btn-primary {
+  @apply btn text-white;
+  background: linear-gradient(135deg, var(--color-brand-500), var(--color-brand-800));
+  box-shadow: 0 12px 30px -10px rgba(36, 112, 186, 0.7);
+  &:hover { transform: translateY(-2px); box-shadow: 0 18px 36px -12px rgba(36, 112, 186, 0.8); }
+  &:active { transform: translateY(0); }
+}
+
+@utility btn-wa {
+  @apply btn text-white;
+  background: linear-gradient(135deg, #2ddc6e, #128c7e);
+  box-shadow: 0 12px 30px -10px rgba(37, 211, 102, 0.6);
+  &:hover { transform: translateY(-2px); box-shadow: 0 18px 36px -12px rgba(37, 211, 102, 0.75); }
+  &:active { transform: translateY(0); }
+}
+
+@utility btn-ghost {
+  @apply btn border border-white/25 bg-white/10 text-white backdrop-blur;
+  &:hover { @apply bg-white/20; }
+}
+
+@utility btn-ghost-dark {
+  @apply btn border border-ink-900/15 bg-white text-ink-900;
+  &:hover { @apply bg-brand-50; }
+}
+
+@utility glass {
+  @apply rounded-3xl border border-white/60 bg-white/70 backdrop-blur-md;
+}
+
+@utility glass-dark {
+  @apply rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md;
+}
+
+@utility eyebrow {
+  @apply inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.18em];
+}
+
+@utility text-glow {
+  text-shadow: 0 0 40px rgba(88, 166, 232, 0.35);
+}
+
+@utility bg-dots {
+  background-image: radial-gradient(rgba(12, 38, 64, 0.08) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+@utility field {
+  @apply w-full rounded-2xl border border-ink-900/10 bg-white px-4 py-3 text-base text-ink-900 outline-none transition-all;
+  @apply placeholder:text-ink-900/35 focus:border-brand-400 focus:ring-4 focus:ring-brand-200/60;
+}
+
+@utility label {
+  @apply mb-1.5 block text-sm font-medium text-ink-900/80;
+}
