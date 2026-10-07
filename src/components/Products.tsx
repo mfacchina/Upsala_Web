@@ -1,9 +1,9 @@
 "use client";
 
 import { motion } from "motion/react";
-import { Check, Reveal, SectionHeading } from "./ui";
-import { PRODUCTS } from "@/lib/content";
-import { asset } from "@/lib/site";
+import { Check, Reveal, SectionHeading, WhatsAppIcon } from "./ui";
+import { PRODUCTS, PROMO } from "@/lib/content";
+import { ars, asset, waUrl } from "@/lib/site";
 
 export function Products() {
   return (
@@ -25,6 +25,16 @@ export function Products() {
                   <span className="eyebrow bg-white text-brand-700 ring-1 ring-brand-200">{p.name}</span>
                   <h3 className="mt-4 text-2xl font-bold text-ink-900">{p.title}</h3>
                   <p className="mt-2 leading-relaxed text-ink-900/65">{p.text}</p>
+
+                  {/* precio */}
+                  <div className="mt-5 flex flex-wrap items-end gap-x-4 gap-y-1">
+                    <span className="font-display text-4xl font-extrabold text-ink-900">{ars(p.price)}</span>
+                    <span className="pb-1.5 text-sm text-ink-900/55">por bidón</span>
+                    <span className="mb-1 inline-flex items-center gap-1.5 rounded-full bg-sun/25 px-2.5 py-1 text-xs font-semibold text-ink-900">
+                      Primer bidón {ars(p.price / 2)}
+                    </span>
+                  </div>
+
                   <ul className="mt-5 space-y-2">
                     {p.bullets.map((b) => (
                       <li key={b} className="flex items-start gap-2 text-sm text-ink-900/80">
@@ -33,17 +43,45 @@ export function Products() {
                       </li>
                     ))}
                   </ul>
-                  <a href="#registro" className="btn-primary mt-7 !px-6 !py-3 !text-sm">
-                    Pedir bidón de {p.liters} L
-                  </a>
+                  <div className="mt-7 flex flex-wrap gap-3">
+                    <a href="#registro" className="btn-primary !px-6 !py-3 !text-sm">
+                      Pedir bidón de {p.liters} L
+                    </a>
+                    <a
+                      href={waUrl(`Hola Upsala! Quiero pedir un bidón de ${p.liters} litros de agua mineral natural a domicilio.`)}
+                      target="_blank"
+                      rel="noopener"
+                      className="btn-wa !px-5 !py-3 !text-sm"
+                    >
+                      <WhatsAppIcon className="h-4 w-4" />
+                      Pedir por WhatsApp
+                    </a>
+                  </div>
                 </div>
               </div>
             </Reveal>
           ))}
         </div>
 
-        <Reveal className="mt-10 rounded-3xl border border-ink-900/5 bg-foam p-6 text-center text-sm text-ink-900/70 sm:p-8">
-          Los bidones son <strong className="text-ink-900">retornables</strong>: en cada visita te dejamos los llenos y nos llevamos los vacíos, lavados y sanitizados en planta antes de volver a envasar.
+        <Reveal className="mt-6 text-center text-xs text-ink-900/50">
+          {PRODUCTS.priceNote} {PROMO.badge}: {PROMO.title.toLowerCase()}.
+        </Reveal>
+
+        {/* posicionamiento de precio */}
+        <Reveal className="mt-10 overflow-hidden rounded-[2rem] border border-ink-900/5 bg-foam">
+          <div className="grid items-center gap-8 p-7 sm:p-10 lg:grid-cols-[1fr_auto]">
+            <div>
+              <h3 className="font-display text-2xl font-bold text-ink-900 sm:text-3xl">{PRODUCTS.pricing.title}</h3>
+              <p className="mt-3 max-w-3xl leading-relaxed text-ink-900/65">{PRODUCTS.pricing.text}</p>
+            </div>
+            <div className="relative mx-auto h-40 w-40 shrink-0 overflow-hidden rounded-full ring-8 ring-white shadow-card sm:h-48 sm:w-48">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={asset("/img/foto-vaso.webp")} alt="Vaso de agua mineral natural Upsala" className="h-full w-full object-cover" />
+            </div>
+          </div>
+          <p className="border-t border-ink-900/5 px-7 py-4 text-center text-sm text-ink-900/60 sm:px-10">
+            Los bidones son <strong className="text-ink-900">retornables</strong>: en cada visita te dejamos los llenos y nos llevamos los vacíos, lavados y sanitizados en planta antes de volver a envasar.
+          </p>
         </Reveal>
       </div>
     </section>

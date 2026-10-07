@@ -3,7 +3,7 @@
 export const NAV_LINKS = [
   { href: "/#natural", label: "Agua natural" },
   { href: "/#productos", label: "Productos" },
-  { href: "/#dispenser", label: "Dispenser" },
+  { href: "/dispenser/", label: "Dispenser" },
   { href: "/#empresa", label: "La empresa" },
   { href: "/#revendedores", label: "Revendedores" },
   { href: "/#preguntas", label: "Preguntas" },
@@ -53,6 +53,8 @@ export type Product = {
   key: "b12" | "b20";
   name: string;
   liters: number;
+  /** Precio final por bidon, con IVA. */
+  price: number;
   title: string;
   text: string;
   bullets: string[];
@@ -63,11 +65,18 @@ export const PRODUCTS = {
   eyebrow: "Dos tamaños",
   title: "Bidones de 12 y 20 litros",
   text: "Retornables, livianos de manejar y siempre con recambio: te dejamos uno lleno y nos llevamos el vacío.",
+  priceNote: "Precio final por bidón, IVA incluido. Con la promo de bienvenida, el primer bidón sale a la mitad.",
+  /** Posicionamiento de precio: hay mas caras y mas baratas; lo que se paga es agua mineral natural. */
+  pricing: {
+    title: "Hay agua más barata y agua más cara. La diferencia es qué estás pagando.",
+    text: "La mayoría de los bidones del mercado son agua de mesa: agua de red o de pozo tratada. Con Upsala pagás por agua mineral natural, de fuente protegida y envasada en origen. Por eso no es la más barata, y tampoco hace falta pagar de más por una marca grande.",
+  },
   items: [
     {
       key: "b12",
       name: "Bidón 12 L",
       liters: 12,
+      price: 7250,
       title: "Para hogares y departamentos",
       text: "Fácil de instalar y de cambiar. Entra en cualquier dispenser y se levanta sin esfuerzo.",
       bullets: ["Ideal para 1 a 3 personas", "Liviano: lo cambia cualquiera", "Apto dispenser y sifón eléctrico"],
@@ -77,6 +86,7 @@ export const PRODUCTS = {
       key: "b20",
       name: "Bidón 20 L",
       liters: 20,
+      price: 9700,
       title: "Para consumos grandes",
       text: "El clásico de oficinas, consultorios, gimnasios y familias numerosas. Más litros por visita.",
       bullets: ["Ideal para oficinas y familias", "Menos recambios por semana", "Mejor precio por litro"],
@@ -101,6 +111,54 @@ export const DISPENSER = {
   tiersNote: "Consumo mínimo: 2 bidones por mes.",
   bullets: ["Instalación y retiro sin cargo", "Cambio del equipo si tiene una falla", "Sin contrato: lo devolvés cuando quieras"],
   cta: "Quiero un dispenser",
+  ctaBusiness: "Planes para empresas",
+};
+
+/** Pagina /dispenser/: hogares (alquiler bonificado) y empresas (abono con dispenser sin cargo). */
+export const DISPENSER_PAGE = {
+  eyebrow: "Dispenser frío / calor",
+  title: ["Agua fría y caliente al instante,", "con el dispenser en comodato."],
+  subtitle:
+    "Te lo llevamos, lo instalamos y lo mantenemos. Vos solo elegís cuántos bidones de agua mineral natural necesitás por mes. Para tu casa o para tu empresa.",
+  segments: { home: "Para tu casa", business: "Para tu empresa" },
+  home: {
+    title: "En casa: el alquiler se paga solo con tu consumo",
+    text: "El dispenser cuesta $ 15.000 por mes, pero se bonifica según los bidones de 20 L que consumís. Una familia que toma 6 bidones al mes no paga alquiler.",
+    points: ["Instalación y retiro sin cargo", "Cambio del equipo si tiene una falla", "Sin contrato: lo devolvés cuando quieras", "Consumo mínimo: 2 bidones de 20 L por mes"],
+  },
+  business: {
+    title: "En tu empresa: abono mensual con el dispenser sin cargo",
+    text: "Para oficinas, consultorios, estudios, comercios, gimnasios y colegios armamos un abono mensual con la cantidad que realmente consumen. El dispenser va incluido, sin alquiler ni instalación, durante toda la relación. Entrega programada en día fijo y una sola factura A con IVA discriminado.",
+    reference: "Como referencia, una persona en una oficina consume alrededor de un bidón de 20 L por mes. Dimensionamos el abono con ese dato y lo ajustamos después del primer mes real.",
+    plans: [
+      { people: "Hasta 25 personas", bidones: 12, dispensers: "1 dispenser", price: 116400, promo: 58200 },
+      { people: "De 25 a 45 personas", bidones: 20, dispensers: "1 o 2 dispensers", price: 194000, promo: 97000 },
+      { people: "Más de 45 personas", bidones: 26, dispensers: "2 o más dispensers", price: 252200, promo: 126100 },
+    ],
+    promo: { badge: "Promo empresas", title: "Los primeros 2 meses al 50%", text: "Después, el precio del tramo se mantiene aunque ajustemos la cantidad de bidones al consumo real." },
+    conditions: [
+      "Dispensers sin cargo de alquiler ni instalación, siempre, no solo en la promoción",
+      "Sin permanencia: si no les sirve, retiramos el equipo sin costo de salida",
+      "Entrega programada, retiro de envases vacíos, service o reemplazo del equipo ante cualquier falla",
+      "Factura A con IVA discriminado, pago por transferencia a 15 días",
+      "En enero y febrero, si no necesitan, se suspende la entrega y no se factura",
+      "Se pueden combinar bidones de 20 y 12 L dentro del mismo abono",
+    ],
+    priceNote: "Precios finales con IVA incluido, vigentes a agosto de 2026, sujetos a revisión trimestral con 30 días de aviso.",
+  },
+  form: {
+    eyebrow: "Pedí tu dispenser",
+    title: "Contanos para dónde es y te armamos la propuesta",
+    text: "Si es para una empresa, con la cantidad de personas te pasamos el plan con precio cerrado, en el día y sin compromiso.",
+    success: "Te escribimos por WhatsApp para coordinar la instalación del dispenser.",
+    successBusiness: "Te mandamos la propuesta con el plan y el precio cerrado en el día.",
+  },
+  faq: [
+    { q: "¿El dispenser tiene costo de instalación?", a: "No. Lo llevamos, lo instalamos y queda funcionando el mismo día, sin cargo. Para empresas tampoco tiene alquiler." },
+    { q: "¿Qué pasa si el dispenser falla?", a: "Lo reemplazamos sin cargo. El service está incluido tanto en casas como en empresas." },
+    { q: "¿Puedo combinar bidones de 20 y de 12 litros?", a: "Sí. El dispenser va con el de 20 L, pero el abono puede incluir bidones de 12 L en la proporción que les convenga." },
+    { q: "¿Hay permanencia?", a: "No. En casa lo devolvés cuando quieras. En empresas, si no les sirve retiramos el equipo sin costo de salida." },
+  ],
 };
 
 export const ABOUT = {

@@ -27,6 +27,11 @@ export function Footer() {
                 Registro de clientes
               </a>
             </li>
+            <li>
+              <a href="/dispenser/#empresas" className="transition hover:text-white">
+                Dispenser para empresas
+              </a>
+            </li>
           </ul>
         </div>
         <div>

@@ -3,7 +3,7 @@ import { Logo } from "@/components/Logo";
 import { RegisterForm } from "@/components/RegisterForm";
 import { WhatsAppIcon } from "@/components/ui";
 import { PROMO, REGISTER } from "@/lib/content";
-import { CONTACT, WHATSAPP_URL } from "@/lib/site";
+import { CONTACT, WHATSAPP_URL, asset } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Registrate y recibí agua mineral natural en tu casa",
@@ -46,6 +46,10 @@ export default function RegistroPage() {
             <li>✓ Sin mínimos ni contratos para los bidones</li>
             <li>✓ Te avisamos por WhatsApp antes de cada visita</li>
           </ul>
+          <div className="mt-8 hidden overflow-hidden rounded-[2rem] shadow-card lg:block">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={asset("/img/foto-familia-bidon.webp")} alt="Bidón Upsala de 20 litros en la cocina de una familia" className="aspect-[4/5] w-full object-cover object-top" />
+          </div>
         </div>
         <div className="rounded-[2rem] border border-ink-900/5 bg-white p-6 shadow-card sm:p-9">
           <RegisterForm />

@@ -7,13 +7,15 @@ import { WhatsAppIcon } from "./ui";
 import { NAV_LINKS } from "@/lib/content";
 import { WHATSAPP_URL } from "@/lib/site";
 
-export function Nav() {
+/** onDark: la pagina arranca con fondo oscuro (links en blanco hasta que se scrollea). */
+export function Nav({ onDark = false }: { onDark?: boolean }) {
   const { scrollY } = useScroll();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
 
   useMotionValueEvent(scrollY, "change", (y) => setScrolled(y > 24));
   const solid = scrolled || open;
+  const light = onDark && !solid; // texto claro sobre el hero oscuro
 
   return (
     <header
@@ -23,12 +25,12 @@ export function Nav() {
     >
       <div className="container-x flex h-16 items-center justify-between sm:h-[72px]">
         <a href="/#inicio" aria-label="Upsala, ir al inicio" onClick={() => setOpen(false)}>
-          <Logo className="h-8 sm:h-9" />
+          <Logo className="h-8 sm:h-9" tone={light ? "light" : "dark"} />
         </a>
 
         <nav className="hidden items-center gap-6 lg:flex" aria-label="Secciones">
           {NAV_LINKS.map((l) => (
-            <a key={l.href} href={l.href} className="text-sm font-medium text-ink-900/70 transition hover:text-ink-900">
+            <a key={l.href} href={l.href} className={`text-sm font-medium transition ${light ? "text-white/75 hover:text-white" : "text-ink-900/70 hover:text-ink-900"}`}>
               {l.label}
             </a>
           ))}
@@ -44,7 +46,7 @@ export function Nav() {
           </a>
           <button
             type="button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-ink-900/15 text-ink-900 lg:hidden"
+            className={`inline-flex h-10 w-10 items-center justify-center rounded-full border lg:hidden ${light ? "border-white/25 text-white" : "border-ink-900/15 text-ink-900"}`}
             aria-expanded={open}
             aria-controls="menu-movil"
             aria-label={open ? "Cerrar menú" : "Abrir menú"}

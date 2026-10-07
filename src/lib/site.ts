@@ -13,8 +13,19 @@ export const WHATSAPP_RESELLER_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${en
   "Hola Upsala! Quiero sumarme como revendedor.",
 )}`;
 
+/** Link de WhatsApp a ventas con un mensaje armado. */
+export function waUrl(text: string) {
+  return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`;
+}
+
+/** Formatea pesos argentinos: 9700 -> "$ 9.700". */
+export function ars(n: number) {
+  return `$ ${n.toLocaleString("es-AR")}`;
+}
+
 export const CONTACT = {
   email: "ventas@upsala.com.ar",
+  businessEmail: "administracion@upsala.com.ar",
   phoneDisplay: "11 7065-8458",
   instagram: "https://www.instagram.com/upsala.ba/",
   instagramHandle: "@upsala.ba",

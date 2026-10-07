@@ -5,6 +5,7 @@ import { Drop, WaveDivider } from "./illustrations/Decor";
 import { WhatsAppIcon } from "./ui";
 import { HERO, PROMO } from "@/lib/content";
 import { WHATSAPP_URL, asset } from "@/lib/site";
+import { HeroVideo } from "./HeroVideo";
 
 export function Hero() {
   const reduce = useReducedMotion();
@@ -19,7 +20,8 @@ export function Hero() {
       <motion.div style={{ y: bgY }} className="absolute inset-0 -z-10" aria-hidden>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={asset("/img/hero-agua.png")} alt="" className="h-full w-full object-cover object-left-bottom opacity-90" />
-        <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/40 to-foam" />
+        <HeroVideo />
+        <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/55 to-foam" />
         <div className="absolute right-[-10%] top-[10%] h-[50vh] w-[50vw] rounded-full bg-aqua-300/30 blur-[120px]" />
       </motion.div>
       <FloatingDrops />

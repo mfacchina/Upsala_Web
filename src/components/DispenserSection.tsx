@@ -64,22 +64,25 @@ export function DispenserSection() {
             ))}
           </ul>
 
-          <Reveal delay={0.4} className="mt-9">
-            <a href="#registro" className="btn-wa !px-8">
+          <Reveal delay={0.4} className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <a href="/dispenser/" className="btn-wa !px-8">
               {DISPENSER.cta}
+            </a>
+            <a href="/dispenser/#empresas" className="btn-ghost">
+              {DISPENSER.ctaBusiness}
             </a>
           </Reveal>
         </div>
 
         <Reveal className="relative mx-auto w-full max-w-sm">
           <div className="absolute inset-x-10 bottom-6 h-14 rounded-full bg-brand-500/40 blur-2xl" aria-hidden />
-          {/* foto real del dispenser */}
-          <motion.div whileHover={{ y: -6 }} className="relative rounded-[2rem] bg-white/5 p-6 ring-1 ring-white/10 backdrop-blur">
+          {/* foto real: dispenser en una cocina */}
+          <motion.a href="/dispenser/" whileHover={{ y: -6 }} className="relative block overflow-hidden rounded-[2rem] ring-1 ring-white/15 shadow-float">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={asset("/img/dispenser.png")} alt="Dispenser frío/calor" className="mx-auto h-80 w-auto object-contain drop-shadow-[0_30px_40px_rgba(0,0,0,0.45)] sm:h-[26rem]" />
+            <img src={asset("/img/foto-dispenser-mujer.webp")} alt="Dispenser frío/calor Upsala en una cocina" className="aspect-[3/4] w-full object-cover" />
             <span className="absolute left-5 top-5 rounded-full bg-sun px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-ink-900">Comodato</span>
-            <span className="absolute bottom-5 right-5 rounded-full bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white/80 ring-1 ring-white/15">Con bidón de 20 L</span>
-          </motion.div>
+            <span className="absolute bottom-5 right-5 rounded-full bg-ink-900/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white ring-1 ring-white/15 backdrop-blur">Con bidón de 20 L</span>
+          </motion.a>
           <div className="mt-6 flex items-center justify-center gap-6 text-xs text-white/60">
             <span className="inline-flex items-center gap-2"><span className="h-3 w-3 rounded-full bg-brand-400" /> Agua fría</span>
             <span className="inline-flex items-center gap-2"><span className="h-3 w-3 rounded-full bg-red-500" /> Agua caliente</span>

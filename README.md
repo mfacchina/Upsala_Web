@@ -14,6 +14,13 @@ Reemplaza al sitio de Canva de **https://upsala.com.ar/**.
 |------|----------|
 | `/` | Landing completa: agua mineral natural, bidones 12/20 L, dispenser frío/calor, cómo funciona, registro, empresa, revendedores, preguntas. |
 | `/registro/` | Solo el formulario, sin menú. **Destino de las campañas** de Instagram/Facebook (`https://upsala.com.ar/registro/?utm_source=ig&utm_campaign=octubre`). |
+| `/dispenser/` | Dispenser frío/calor: pestaña "Para tu casa" (alquiler $15.000 bonificado por consumo) y "Para tu empresa" (abonos de la propuesta corporativa, dispenser sin cargo, factura A). `/dispenser/#empresas` abre directo la pestaña de empresas. Formulario propio con empresa y cantidad de personas; entra a la app como registro con producto "Dispenser". |
+
+Precios de los bidones (20 L $9.700, 12 L $7.250), la escala de bonificación y los planes para empresas están en `src/lib/content.ts`.
+
+## Fotos y videos
+
+`public/img/foto-*.webp` son las fotos de ambiente (dispenser en cocina, familia con bidón, vaso) y `public/video/*.mp4` los tres videos cortos: `pureza-natural.mp4` es el fondo del hero (solo en pantallas grandes y sin "reducir movimiento"), `comercial.mp4` va en la sección de agua natural y `cocina.mp4` en la página del dispenser. Los videos se cargan recién cuando entran en pantalla.
 
 ## El formulario y la app de gestión
 
