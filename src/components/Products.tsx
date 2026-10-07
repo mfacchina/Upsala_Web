@@ -34,7 +34,7 @@ export function Products() {
                     ))}
                   </ul>
                   <a href="#registro" className="btn-primary mt-7 !px-6 !py-3 !text-sm">
-                    Pedir {p.name.toLowerCase()}
+                    Pedir bidón de {p.liters} L
                   </a>
                 </div>
               </div>
