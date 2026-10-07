@@ -29,9 +29,34 @@ export function DispenserSection() {
             <p className="max-w-xs pb-2 text-sm text-white/70">{DISPENSER.priceNote}</p>
           </Reveal>
 
-          <ul className="mt-8 grid gap-3 sm:grid-cols-2">
+          {/* escala de bonificacion por consumo */}
+          <Reveal delay={0.15} className="mt-8">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">Bonificación según tu consumo mensual</p>
+            <ol className="mt-3 grid gap-3 sm:grid-cols-3">
+              {DISPENSER.tiers.map((t, i) => (
+                <motion.li
+                  key={t.range}
+                  initial={{ opacity: 0, y: 16 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 + i * 0.1, duration: 0.5 }}
+                  className={`relative rounded-2xl p-4 ${t.highlight ? "bg-gradient-to-br from-aqua-400 to-brand-500 text-ink-900 shadow-glow" : "glass-dark"}`}
+                >
+                  {t.highlight && (
+                    <span className="absolute -top-3 left-4 rounded-full bg-sun px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-ink-900">Gratis</span>
+                  )}
+                  <span className={`block text-sm font-semibold ${t.highlight ? "text-ink-900/80" : "text-white/70"}`}>{t.range}</span>
+                  <span className={`mt-1 block font-display text-3xl font-extrabold ${t.highlight ? "text-ink-900" : "text-white"}`}>{t.bonus}</span>
+                  <span className={`block text-xs ${t.highlight ? "text-ink-900/70" : "text-white/55"}`}>{t.pay}</span>
+                </motion.li>
+              ))}
+            </ol>
+            <p className="mt-3 text-xs text-white/55">{DISPENSER.tiersNote}</p>
+          </Reveal>
+
+          <ul className="mt-7 grid gap-3 sm:grid-cols-3">
             {DISPENSER.bullets.map((b, i) => (
-              <Reveal key={b} delay={0.15 + i * 0.08} as="li" className="glass-dark flex items-start gap-3 px-4 py-3">
+              <Reveal key={b} delay={0.25 + i * 0.08} as="li" className="flex items-start gap-3">
                 <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-aqua-400/20 text-aqua-300">
                   <Check className="h-3.5 w-3.5" />
                 </span>

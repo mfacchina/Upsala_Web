@@ -99,12 +99,22 @@ function RouteMap() {
             <stop offset="1" stopColor="#58a6e8" />
           </linearGradient>
         </defs>
+        {/* la ruta queda fija; lo que se mueve es el punteado (dashoffset) y un camioncito que la recorre */}
         <path d="M24 60 C 90 20, 180 80, 296 36" fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth="3" strokeLinecap="round" />
-        <path d="M24 60 C 90 20, 180 80, 296 36" fill="none" stroke="url(#route)" strokeWidth="3" strokeLinecap="round" strokeDasharray="6 8" className="animate-wave" style={{ animationDuration: "9s" }} />
+        <path d="M24 60 C 90 20, 180 80, 296 36" fill="none" stroke="url(#route)" strokeWidth="3" strokeLinecap="round" strokeDasharray="6 8" className="animate-dash" />
         <circle cx="24" cy="60" r="6" fill="#7adcf0" />
         <circle cx="24" cy="60" r="11" fill="none" stroke="#7adcf0" strokeOpacity="0.5" className="animate-pulse-soft" />
         <circle cx="296" cy="36" r="6" fill="#ffffff" />
         <circle cx="296" cy="36" r="11" fill="none" stroke="#ffffff" strokeOpacity="0.5" className="animate-pulse-soft" style={{ animationDelay: "1s" }} />
+        <g>
+          <animateMotion dur="6s" repeatCount="indefinite" rotate="auto" calcMode="spline" keySplines="0.4 0 0.6 1" keyTimes="0;1" path="M24 60 C 90 20, 180 80, 296 36" />
+          <g transform="translate(-10 -7)">
+            <rect x="0" y="2" width="12" height="9" rx="2" fill="#ffffff" />
+            <path d="M12 5h4l3 3v3h-7z" fill="#ffffff" />
+            <circle cx="4" cy="12" r="2" fill="#0c2640" stroke="#ffffff" strokeWidth="1.2" />
+            <circle cx="15" cy="12" r="2" fill="#0c2640" stroke="#ffffff" strokeWidth="1.2" />
+          </g>
+        </g>
         <text x="24" y="82" textAnchor="middle" fill="rgba(255,255,255,0.75)" fontSize="10" fontWeight="600">9 de Julio</text>
         <text x="290" y="20" textAnchor="middle" fill="rgba(255,255,255,0.75)" fontSize="10" fontWeight="600">CABA</text>
       </svg>

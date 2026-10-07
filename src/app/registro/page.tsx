@@ -7,7 +7,7 @@ import { CONTACT, WHATSAPP_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Registrate y recibí agua mineral natural en tu casa",
-  description: "Completá tus datos, elegí tu barrio y te confirmamos al instante si tenemos cobertura. Promo 2×1 en tu primer pedido.",
+  description: "Completá tus datos, elegí tu barrio y te confirmamos al instante si tenemos cobertura. 50% de descuento en tu primer bidón.",
   alternates: { canonical: "/registro/" },
 };
 
@@ -43,7 +43,7 @@ export default function RegistroPage() {
           <ul className="mt-6 space-y-2 text-sm text-ink-900/70">
             <li>✓ Bidones de 12 y 20 litros, retornables</li>
             <li>✓ Dispenser frío/calor en comodato</li>
-            <li>✓ Sin mínimos ni contratos</li>
+            <li>✓ Sin mínimos ni contratos para los bidones</li>
             <li>✓ Te avisamos por WhatsApp antes de cada visita</li>
           </ul>
         </div>

@@ -46,6 +46,12 @@
   --animate-marquee: marquee 40s linear infinite;
   --animate-shimmer: shimmer 2.8s linear infinite;
   --animate-bubble-small: bubbleSmall 2.8s ease-in infinite;
+  --animate-dash: dash 1.2s linear infinite;
+
+  @keyframes dash {
+    from { stroke-dashoffset: 28; }
+    to { stroke-dashoffset: 0; }
+  }
 
   @keyframes float {
     0%, 100% { transform: translateY(0); }

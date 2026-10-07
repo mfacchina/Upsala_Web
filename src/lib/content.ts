@@ -12,8 +12,8 @@ export const NAV_LINKS = [
 /** Promocion de bienvenida. Cambiar aca si cambia la campania. */
 export const PROMO = {
   badge: "Promo de bienvenida",
-  title: "2×1 en tu primer pedido",
-  text: "Llevás dos bidones y pagás uno. Válido al darte de alta como cliente nuevo.",
+  title: "50% en tu primer bidón",
+  text: "Tu primer bidón a mitad de precio por darte de alta como cliente nuevo.",
 };
 
 export const HERO = {
@@ -25,33 +25,27 @@ export const HERO = {
   secondaryCta: "Escribir por WhatsApp",
   trust: "Más de 15 años llevando agua mineral natural a hogares y oficinas.",
   chips: [
-    { label: "Promo", value: "2×1 en el primer pedido" },
+    { label: "Promo", value: "50% en el primer bidón" },
     { label: "Sin mínimos", value: "Ni contratos" },
     { label: "Reparto", value: "A domicilio en CABA" },
   ],
 };
 
 export const NATURAL = {
-  eyebrow: "100% mineral natural",
-  title: "Tan pura que no necesita presentación",
-  text: "No es agua de red filtrada ni tratada: es agua mineral natural, extraída de una napa protegida en una zona rural de 9 de Julio y envasada en origen, con la misma pureza que le da la naturaleza.",
+  eyebrow: "¿Qué agua estás tomando?",
+  title: "Mineral natural no es lo mismo que agua de mesa",
+  text: "Casi toda el agua en bidón que llega a los hogares de Buenos Aires es agua de mesa: agua de red o de pozo que se purifica y se trata, a veces con minerales agregados. El agua mineral natural es otra categoría: nace con sus minerales de una fuente subterránea protegida y se envasa en origen, sin tratamientos. Upsala es agua mineral natural, y en CABA eso es poco común.",
+  /** Lo que NO es (en tono tranquilo) y lo que sí es. */
+  compare: [
+    { is: false, title: "No es mineralizada", text: "No se le agregan minerales después: los trae de la fuente, en su proporción natural." },
+    { is: false, title: "No es agua de mesa", text: "No sale de la red ni de un pozo cualquiera: viene de una napa protegida en zona rural." },
+    { is: false, title: "No es purificada ni tratada", text: "No pasa por ósmosis, cloro ni filtrados químicos: no hace falta, ya nace pura." },
+    { is: true, title: "Es agua mineral natural", text: "Envasada en origen en Villa Fournier, 9 de Julio, con controles de laboratorio periódicos. Tal como sale de la tierra." },
+  ],
   points: [
-    {
-      title: "De napa protegida",
-      text: "Nace en una zona rural rodeada de campos, lejos de la polución de las grandes ciudades.",
-    },
-    {
-      title: "Sin procesos artificiales",
-      text: "No se le agrega ni se le quita nada. Se envasa tal como sale, con sus minerales naturales.",
-    },
-    {
-      title: "Envasada en origen",
-      text: "La planta embotelladora está sobre la misma fuente, en Villa Fournier, 9 de Julio.",
-    },
-    {
-      title: "Controlada siempre",
-      text: "Análisis periódicos y envases lavados y sanitizados en cada recambio.",
-    },
+    { title: "De napa protegida", text: "Nace en una zona rural rodeada de campos, lejos de la polución de las grandes ciudades." },
+    { title: "Envasada en origen", text: "La planta embotelladora está sobre la misma fuente, en Villa Fournier, 9 de Julio." },
+    { title: "Controlada siempre", text: "Análisis periódicos y envases lavados y sanitizados en cada recambio." },
   ],
 };
 
@@ -97,13 +91,15 @@ export const DISPENSER = {
   text: "Te instalamos un dispenser frío/calor en comodato con tu bidón de 20 litros. Sin comprar equipo, sin service: si falla, lo cambiamos.",
   priceLabel: "Alquiler mensual",
   price: "$ 15.000",
-  priceNote: "por mes, con bonificación según tu consumo de bidones",
-  bullets: [
-    "Instalación y retiro sin cargo",
-    "Cambio del equipo si tiene una falla",
-    "Se bonifica con tu consumo: cuanta más agua pedís, menos pagás de alquiler",
-    "Sin mínimos ni máximos: armamos el abono a tu medida",
+  priceNote: "por mes, y se bonifica según los bidones de 20 L que consumís en el mes",
+  /** Escala de bonificación por consumo mensual de bidones. */
+  tiers: [
+    { range: "6 o más bidones", bonus: "100%", pay: "No pagás alquiler", highlight: true },
+    { range: "4 o 5 bidones", bonus: "50%", pay: "Pagás $ 7.500", highlight: false },
+    { range: "2 o 3 bidones", bonus: "Sin bonificación", pay: "Pagás $ 15.000", highlight: false },
   ],
+  tiersNote: "Consumo mínimo: 2 bidones por mes.",
+  bullets: ["Instalación y retiro sin cargo", "Cambio del equipo si tiene una falla", "Sin contrato: lo devolvés cuando quieras"],
   cta: "Quiero un dispenser",
 };
 
@@ -151,7 +147,7 @@ export const REGISTER = {
   notCoveredMsg: "Todavía no llegamos a tu barrio. Dejanos tus datos igual y te avisamos cuando lleguemos.",
   unknownMsg: "No pudimos verificar la cobertura automáticamente. Dejanos tus datos y te confirmamos por WhatsApp.",
   successTitle: "¡Registro recibido!",
-  successCovered: "Te escribimos por WhatsApp a la brevedad para coordinar tu primera entrega y activar tu promo 2×1.",
+  successCovered: "Te escribimos por WhatsApp a la brevedad para coordinar tu primera entrega y aplicar el 50% en tu primer bidón.",
   successNotCovered:
     "Todavía no tenemos reparto en tu barrio, pero guardamos tus datos: en cuanto lleguemos te avisamos.",
   privacy: "Tus datos son confidenciales y solo los usamos para coordinar tu entrega.",
@@ -175,8 +171,8 @@ export const RESELLERS = {
 
 export const FAQ = [
   {
-    q: "¿Qué diferencia hay entre agua mineral natural y agua purificada?",
-    a: "El agua purificada es agua de red o de pozo que se filtra y se trata. El agua mineral natural nace de una napa protegida, se envasa en origen y conserva sus minerales sin agregados ni procesos artificiales. Upsala es agua mineral natural.",
+    q: "¿Qué diferencia hay entre agua mineral natural y agua de mesa?",
+    a: "El agua de mesa es agua de red o de pozo que se purifica y se trata, y a veces se mineraliza agregándole sales. El agua mineral natural nace con sus minerales de una fuente subterránea protegida, se envasa en origen y no se trata. Upsala es agua mineral natural: en Buenos Aires, la mayoría de los bidones son agua de mesa.",
   },
   {
     q: "¿En qué zonas reparten?",
@@ -184,11 +180,11 @@ export const FAQ = [
   },
   {
     q: "¿Hay un mínimo de pedido o un contrato?",
-    a: "No. Pedís lo que necesitás, cuando lo necesitás. El reparto pasa con la frecuencia que acordemos y te avisa por WhatsApp antes de cada visita.",
+    a: "Para los bidones, no: pedís lo que necesitás, cuando lo necesitás, y el reparto te avisa por WhatsApp antes de cada visita. El único mínimo es para el dispenser frío/calor en comodato: 2 bidones de 20 L por mes.",
   },
   {
     q: "¿Cómo funciona el dispenser frío/calor?",
-    a: "Te lo instalamos en comodato por un alquiler mensual que se bonifica según tu consumo de bidones. Si el equipo tiene una falla, lo cambiamos sin cargo.",
+    a: "Te lo instalamos en comodato por $ 15.000 al mes, que se bonifican según tu consumo: con 6 o más bidones de 20 L al mes no pagás alquiler, con 4 o 5 pagás la mitad y con 2 o 3 pagás el alquiler completo. El consumo mínimo es de 2 bidones por mes. Si el equipo tiene una falla, lo cambiamos sin cargo.",
   },
   {
     q: "¿Cómo pago?",
