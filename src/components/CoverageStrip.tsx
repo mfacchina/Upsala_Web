@@ -11,8 +11,8 @@ export function CoverageStrip() {
     fetchFormOptions().then((o) => {
       if (!alive || !o.live) return;
       const covered = o.barrios.filter((b) => b.covered).map((b) => b.name);
-      const allCaba = covered.length > 0 && covered.length === o.barrios.length;
-      setItems(allCaba ? ["Toda la Ciudad de Buenos Aires", ...o.zones] : [...covered, ...o.zones]);
+      // Los barrios que no son oficiales de CABA ya figuran en la lista; San Martin va como localidad.
+      setItems([...covered, ...o.zones]);
     });
     return () => {
       alive = false;

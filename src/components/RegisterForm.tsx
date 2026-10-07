@@ -50,7 +50,7 @@ export function RegisterForm({ compact = false }: { compact?: boolean }) {
   const [options, setOptions] = useState<FormOptions | null>(null); // null = cargando
   const [sending, setSending] = useState(false);
   const [error, setError] = useState<{ message: string; field: string | null } | null>(null);
-  const [done, setDone] = useState<{ covered: boolean | null } | null>(null);
+  const [done, setDone] = useState<{ covered: boolean | null; day: string | null } | null>(null);
 
   useEffect(() => {
     let alive = true;
@@ -63,10 +63,10 @@ export function RegisterForm({ compact = false }: { compact?: boolean }) {
   const set = <K extends keyof Form>(k: K, v: Form[K]) => setForm((f) => ({ ...f, [k]: v }));
 
   const neighborhood = form.zone === OTHER ? form.otherZone.trim() : form.zone;
-  const coverage: Coverage = useMemo(() => {
-    if (!neighborhood || !options) return "idle";
+  const { coverage, day } = useMemo((): { coverage: Coverage; day: string | null } => {
+    if (!neighborhood || !options) return { coverage: "idle", day: null };
     const c = coverageFor(options, neighborhood);
-    return c === true ? "covered" : c === false ? "not-covered" : "unknown";
+    return { coverage: c.covered === true ? "covered" : c.covered === false ? "not-covered" : "unknown", day: c.day };
   }, [neighborhood, options]);
 
   const submit = async (e: React.FormEvent) => {
@@ -102,7 +102,7 @@ export function RegisterForm({ compact = false }: { compact?: boolean }) {
     try {
       const res = await submitRegistration(payload);
       trackLead("CLIENT");
-      setDone({ covered: res.covered });
+      setDone({ covered: res.covered, day: res.day ?? day });
     } catch (err) {
       setError(err instanceof ApiError ? { message: err.message, field: err.field } : { message: "Ocurrió un error. Probá de nuevo.", field: null });
     } finally {
@@ -123,6 +123,12 @@ export function RegisterForm({ compact = false }: { compact?: boolean }) {
           <h3 className="text-2xl font-bold text-ink-900">{REGISTER.successTitle}</h3>
           <p className="mx-auto mt-2 max-w-md text-ink-900/65">
             Gracias, <strong className="text-ink-900">{form.firstName.trim()}</strong>. {covered ? REGISTER.successCovered : REGISTER.successNotCovered}
+            {covered && done.day && (
+              <>
+                {" "}
+                En tu zona repartimos los <strong className="text-ink-900">{done.day}</strong>.
+              </>
+            )}
           </p>
         </div>
         <a href={WHATSAPP_URL} target="_blank" rel="noopener" className="btn-wa">
@@ -192,7 +198,13 @@ export function RegisterForm({ compact = false }: { compact?: boolean }) {
         <AnimatePresence>
           {coverage !== "idle" && (
             <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="mt-2 text-sm text-ink-900/65">
-              {coverage === "covered" ? REGISTER.coveredMsg : coverage === "not-covered" ? REGISTER.notCoveredMsg : REGISTER.unknownMsg}
+              {coverage === "covered"
+                ? day
+                  ? `${REGISTER.coveredMsg} En tu zona repartimos los ${day}.`
+                  : REGISTER.coveredMsg
+                : coverage === "not-covered"
+                  ? REGISTER.notCoveredMsg
+                  : REGISTER.unknownMsg}
             </motion.p>
           )}
         </AnimatePresence>

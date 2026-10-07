@@ -6,7 +6,7 @@ import { CABA_BARRIOS } from "./barrios";
 
 const ENDPOINT = `${API_URL}/api/public/registro`;
 
-export type Barrio = { name: string; covered: boolean | null };
+export type Barrio = { name: string; covered: boolean | null; day?: string | null };
 
 export type FormOptions = {
   /** Barrios de CABA con su cobertura. */
@@ -38,7 +38,7 @@ export type RegistrationPayload = {
   website?: string;
 };
 
-export type RegistrationResult = { ok: true; id?: string; covered: boolean | null };
+export type RegistrationResult = { ok: true; id?: string; covered: boolean | null; day: string | null };
 
 export class ApiError extends Error {
   field: string | null;
@@ -91,11 +91,11 @@ export async function submitRegistration(payload: RegistrationPayload): Promise<
   } catch {
     throw new ApiError("No pudimos conectar con el sistema. Probá de nuevo o escribinos por WhatsApp.");
   }
-  const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; field?: string | null; covered?: boolean | null; id?: string };
+  const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; field?: string | null; covered?: boolean | null; day?: string | null; id?: string };
   if (!res.ok || !data.ok) {
     throw new ApiError(data.error ?? "No pudimos guardar tu registro. Escribinos por WhatsApp.", data.field ?? null);
   }
-  return { ok: true, id: data.id, covered: data.covered ?? null };
+  return { ok: true, id: data.id, covered: data.covered ?? null, day: data.day ?? null };
 }
 
 /** Normaliza para comparar barrios: minusculas, sin acentos ni signos. */
@@ -109,16 +109,16 @@ export function normalizeName(s: string) {
 }
 
 /**
- * Cobertura de un barrio/localidad escrito a mano: true/false si la API respondio,
- * null si no se puede saber.
+ * Cobertura de un barrio/localidad escrito a mano: covered true/false si la API respondio,
+ * null si no se puede saber.  es el dia de reparto de la zona, si se conoce.
  */
-export function coverageFor(options: FormOptions, name: string): boolean | null {
+export function coverageFor(options: FormOptions, name: string): { covered: boolean | null; day: string | null } {
   const n = normalizeName(name);
-  if (!n) return null;
+  if (!n) return { covered: null, day: null };
   const barrio = options.barrios.find((b) => normalizeName(b.name) === n);
-  if (barrio) return barrio.covered;
-  if (options.zones.some((z) => normalizeName(z) === n)) return true;
-  return options.live ? false : null;
+  if (barrio) return { covered: barrio.covered, day: barrio.day ?? null };
+  if (options.zones.some((z) => normalizeName(z) === n)) return { covered: true, day: null };
+  return { covered: options.live ? false : null, day: null };
 }
 
 const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "gclid"];
