@@ -46,7 +46,7 @@ export function DispenserSection() {
                     <span className="absolute -top-3 left-4 rounded-full bg-sun px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-ink-900">Gratis</span>
                   )}
                   <span className={`block text-sm font-semibold ${t.highlight ? "text-ink-900/80" : "text-white/70"}`}>{t.range}</span>
-                  <span className={`mt-1 block font-display text-3xl font-extrabold ${t.highlight ? "text-ink-900" : "text-white"}`}>{t.bonus}</span>
+                  <span className={`mt-1 block font-display font-extrabold ${t.bonus.length > 5 ? "text-lg leading-tight" : "text-3xl"} ${t.highlight ? "text-ink-900" : "text-white"}`}>{t.bonus}</span>
                   <span className={`block text-xs ${t.highlight ? "text-ink-900/70" : "text-white/55"}`}>{t.pay}</span>
                 </motion.li>
               ))}
