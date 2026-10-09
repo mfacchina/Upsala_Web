@@ -1,0 +1,31 @@
+# Configuracion para publicar el sitio en un hosting con Apache (cPanel).
+# Next.js exporta cada pagina como carpeta/index.html, asi que no hace falta reescribir rutas.
+
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+<IfModule mod_mime.c>
+  AddType video/mp4 .mp4
+  AddType image/webp .webp
+  AddType image/svg+xml .svg
+</IfModule>
+
+# Lo de _next/static lleva un hash en el nombre: se puede cachear para siempre.
+# El HTML y las imagenes se revalidan siempre, asi los cambios se ven al toque.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/javascript "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType font/woff2 "access plus 1 year"
+  ExpiresByType video/mp4 "access plus 30 days"
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml
+</IfModule>

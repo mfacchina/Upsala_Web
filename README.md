@@ -53,23 +53,38 @@ npm run build        # deja el sitio listo en out/
 npm run preview      # lo sirve en http://localhost:3500/ tal como va a quedar
 ```
 
-Subir **el contenido** de `out/` a la raíz del hosting del dominio (`out/index.html` tiene que quedar en `https://upsala.com.ar/index.html`).
+Subir **el contenido** de `out/` a la raíz del hosting del dominio (`out/index.html` tiene que quedar en `https://upsala.com.ar/index.html`). `public/.htaccess` sale dentro de `out/` y configura Apache (404, tipos de video, caché).
 
-### Vista previa en el servidor (PM2)
+### Publicar en upsala.com.ar (cPanel de Hostmar)
 
-Hay una vista previa servida con PM2 (`upsala-web`) en el servidor de la app, puerto **2520**:
-http://serverfer.aginet.com.ar:2520/
+El dominio usa los DNS de Hostmar (ns3/ns4.hostmar.com) y el mail vive ahí (`mail.upsala.com.ar`, 200.58.111.95). La web apuntaba a Canva (103.169.142.0).
 
-Para actualizarla:
+1. Buildear para la raíz y zipear el **contenido** de `out/`, incluido `.htaccess`:
+   ```bash
+   MSYS_NO_PATHCONV=1 NEXT_PUBLIC_BASE_PATH= npm run build
+   cd out && tar.exe -a -c -f ../upsala-web-cpanel.zip .htaccess *
+   ```
+   `tar.exe` es el de Windows (`C:\Windows\System32\tar.exe`): arma el zip con barras `/`, que es lo que necesita el servidor Linux.
+2. cPanel > Administrador de archivos > `public_html`: borrar lo que haya del sitio viejo, subir el zip y "Extraer". `index.html` tiene que quedar directamente en `public_html`.
+3. cPanel > Editor de zona > upsala.com.ar: cambiar los registros **A** de `upsala.com.ar` y `www.upsala.com.ar` de 103.169.142.0 a 200.58.111.95. **No tocar MX, `mail`, `mx1` ni el TXT de SPF.** El TXT `canva-domain-verify` se puede borrar.
+4. Cuando el dominio ya resuelva al hosting: cPanel > Estado de SSL/TLS > "Ejecutar AutoSSL"; con el candado funcionando, Dominios > "Forzar redireccionamiento HTTPS".
+5. En Canva, desconectar el dominio del sitio viejo.
+
+Los formularios siguen llegando a la app: el navegador llama a `https://upsala.aquacontrol.aginet.com.ar/api/public/registro`, que ya acepta `https://upsala.com.ar` y `https://www.upsala.com.ar`. Para actualizar el sitio, repetir los pasos 1 y 2.
+
+### Vista previa en el servidor de la app (PM2)
+
+Mientras no esté el dominio, hay una vista previa servida con PM2 (`upsala-web`, puerto 2520, `BASE_PATH=/web`) que la app publica con HTTPS en
+**https://upsala.aquacontrol.aginet.com.ar/web/** (rewrite en `next.config.ts` de app-upsala). El puerto 2520 pelado no sirve: Chrome fuerza HTTPS.
+
+Para actualizarla (ojo: buildear con `/web`):
 
 ```bash
-npm run build
-tar -czf - out scripts/serve-out.mjs | ssh upsala-delivery@serverfer.aginet.com.ar 'rm -rf ~/upsala-web/out && mkdir -p ~/upsala-web && tar -C ~/upsala-web -xzf - && pm2 restart upsala-web'
+MSYS_NO_PATHCONV=1 NEXT_PUBLIC_BASE_PATH=/web npm run build
+tar -czf - out scripts/serve-out.mjs | ssh upsala-delivery@serverfer.aginet.com.ar 'rm -rf ~/upsala-web/out && tar -C ~/upsala-web -xzf - && pm2 restart upsala-web'
 ```
 
-La primera vez (ya hecho): `cd ~/upsala-web && PORT=2520 pm2 start scripts/serve-out.mjs --name upsala-web && pm2 save`.
-
-Cuando se apunte el dominio a este servidor, alcanza con un `proxy_pass` de Nginx a `127.0.0.1:2520` (o subir `out/` al hosting actual).
+Sin `MSYS_NO_PATHCONV=1`, Git Bash convierte `/web` en `C:/Program Files/Git/web` y el build falla. Cuando el sitio esté en su dominio, sacar el rewrite de la app y este proceso.
 
 ## Imagen para compartir (og.png)
 

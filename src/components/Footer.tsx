@@ -1,6 +1,6 @@
 import { Logo } from "./Logo";
 import { NAV_LINKS } from "@/lib/content";
-import { CONTACT, WHATSAPP_URL } from "@/lib/site";
+import { CONTACT, WHATSAPP_URL, asset } from "@/lib/site";
 
 export function Footer() {
   return (
@@ -17,18 +17,18 @@ export function Footer() {
           <ul className="mt-4 space-y-2 text-sm">
             {NAV_LINKS.map((l) => (
               <li key={l.href}>
-                <a href={l.href} className="transition hover:text-white">
+                <a href={asset(l.href)} className="transition hover:text-white">
                   {l.label}
                 </a>
               </li>
             ))}
             <li>
-              <a href="/registro/" className="transition hover:text-white">
+              <a href={asset("/registro/")} className="transition hover:text-white">
                 Registro de clientes
               </a>
             </li>
             <li>
-              <a href="/dispenser/#empresas" className="transition hover:text-white">
+              <a href={asset("/dispenser/#empresas")} className="transition hover:text-white">
                 Dispenser para empresas
               </a>
             </li>

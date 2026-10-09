@@ -65,10 +65,10 @@ export function DispenserSection() {
           </ul>
 
           <Reveal delay={0.4} className="mt-9 flex flex-col gap-3 sm:flex-row">
-            <a href="/dispenser/" className="btn-wa !px-8">
+            <a href={asset("/dispenser/")} className="btn-wa !px-8">
               {DISPENSER.cta}
             </a>
-            <a href="/dispenser/#empresas" className="btn-ghost">
+            <a href={asset("/dispenser/#empresas")} className="btn-ghost">
               {DISPENSER.ctaBusiness}
             </a>
           </Reveal>
@@ -77,7 +77,7 @@ export function DispenserSection() {
         <Reveal className="relative mx-auto w-full max-w-sm">
           <div className="absolute inset-x-10 bottom-6 h-14 rounded-full bg-brand-500/40 blur-2xl" aria-hidden />
           {/* foto real: dispenser en una cocina */}
-          <motion.a href="/dispenser/" whileHover={{ y: -6 }} className="relative block overflow-hidden rounded-[2rem] ring-1 ring-white/15 shadow-float">
+          <motion.a href={asset("/dispenser/")} whileHover={{ y: -6 }} className="relative block overflow-hidden rounded-[2rem] ring-1 ring-white/15 shadow-float">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={asset("/img/foto-dispenser-mujer.webp")} alt="Dispenser frío/calor Upsala en una cocina" className="aspect-[3/4] w-full object-cover" />
             <span className="absolute left-5 top-5 rounded-full bg-sun px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-ink-900">Comodato</span>

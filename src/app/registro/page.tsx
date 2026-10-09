@@ -19,7 +19,7 @@ export default function RegistroPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-brand-50 via-foam to-white">
       <header className="container-x flex h-16 items-center justify-between sm:h-20">
-        <a href="/" aria-label="Upsala, ir al sitio">
+        <a href={asset("/")} aria-label="Upsala, ir al sitio">
           <Logo className="h-8 sm:h-9" />
         </a>
         <a href={WHATSAPP_URL} target="_blank" rel="noopener" className="btn-wa !px-4 !py-2.5 !text-sm">
@@ -57,7 +57,7 @@ export default function RegistroPage() {
       </div>
 
       <footer className="container-x pb-10 text-center text-xs text-ink-900/45">
-        Upsala · Agua mineral natural · {CONTACT.email} · <a href="/" className="underline">upsala.com.ar</a>
+        Upsala · Agua mineral natural · {CONTACT.email} · <a href={asset("/")} className="underline">upsala.com.ar</a>
       </footer>
     </main>
   );

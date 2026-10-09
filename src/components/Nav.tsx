@@ -5,7 +5,7 @@ import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/
 import { Logo } from "./Logo";
 import { WhatsAppIcon } from "./ui";
 import { NAV_LINKS } from "@/lib/content";
-import { WHATSAPP_URL } from "@/lib/site";
+import { WHATSAPP_URL, asset } from "@/lib/site";
 
 /** onDark: la pagina arranca con fondo oscuro (links en blanco hasta que se scrollea). */
 export function Nav({ onDark = false }: { onDark?: boolean }) {
@@ -24,13 +24,13 @@ export function Nav({ onDark = false }: { onDark?: boolean }) {
       }`}
     >
       <div className="container-x flex h-16 items-center justify-between sm:h-[72px]">
-        <a href="/#inicio" aria-label="Upsala, ir al inicio" onClick={() => setOpen(false)}>
+        <a href={asset("/#inicio")} aria-label="Upsala, ir al inicio" onClick={() => setOpen(false)}>
           <Logo className="h-8 sm:h-9" tone={light ? "light" : "dark"} />
         </a>
 
         <nav className="hidden items-center gap-6 lg:flex" aria-label="Secciones">
           {NAV_LINKS.map((l) => (
-            <a key={l.href} href={l.href} className={`text-sm font-medium transition ${light ? "text-white/75 hover:text-white" : "text-ink-900/70 hover:text-ink-900"}`}>
+            <a key={l.href} href={asset(l.href)} className={`text-sm font-medium transition ${light ? "text-white/75 hover:text-white" : "text-ink-900/70 hover:text-ink-900"}`}>
               {l.label}
             </a>
           ))}
@@ -41,7 +41,7 @@ export function Nav({ onDark = false }: { onDark?: boolean }) {
             <WhatsAppIcon className="h-4 w-4" />
             WhatsApp
           </a>
-          <a href="/#registro" className="btn-primary !px-4 !py-2.5 !text-sm">
+          <a href={asset("/#registro")} className="btn-primary !px-4 !py-2.5 !text-sm">
             Quiero agua
           </a>
           <button
@@ -72,7 +72,7 @@ export function Nav({ onDark = false }: { onDark?: boolean }) {
           >
             <div className="container-x flex flex-col gap-1 py-4">
               {NAV_LINKS.map((l) => (
-                <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="rounded-xl px-3 py-3 text-base font-medium text-ink-900/85 hover:bg-brand-50">
+                <a key={l.href} href={asset(l.href)} onClick={() => setOpen(false)} className="rounded-xl px-3 py-3 text-base font-medium text-ink-900/85 hover:bg-brand-50">
                   {l.label}
                 </a>
               ))}
