@@ -72,7 +72,7 @@ El dominio y el mail están en DonWeb (panel Ferozo, cuenta `c2700043`, DNS ns3/
 
 ### Pixel de Meta
 
-Con el ID del pixel (Administrador de eventos de Meta), buildear con `NEXT_PUBLIC_META_PIXEL_ID=<id>`. Eventos: `PageView` en cada página, `Lead` cuando un formulario se guarda en la app (`content_name`: cliente, dispenser_casa, dispenser_empresa, revendedor) y `Contact` en cada click a WhatsApp (`content_name`: confirmar_pedido, confirmar_dispenser_casa, confirmar_dispenser_empresa, revendedor, whatsapp). Para verificar el dominio en Meta Business: `NEXT_PUBLIC_META_DOMAIN_VERIFICATION=<código>` o un registro TXT en la Zona DNS. En la vista previa `/web/` el pixel no carga porque la app tiene una política de seguridad que no permite scripts de Facebook; se prueba en upsala.com.ar.
+El pixel es **Upsala CAPI (2272461290182516)**, cargado por defecto en `src/lib/site.ts` (se puede pisar con `NEXT_PUBLIC_META_PIXEL_ID`). Ojo al probarlo: el script de Meta no manda eventos desde navegadores automatizados (headless/webdriver), así que las pruebas automáticas dan cero aunque funcione; se verifica a mano con "Probar eventos". Eventos: `PageView` en cada página, `Lead` cuando un formulario se guarda en la app (`content_name`: cliente, dispenser_casa, dispenser_empresa, revendedor) y `Contact` en cada click a WhatsApp (`content_name`: confirmar_pedido, confirmar_dispenser_casa, confirmar_dispenser_empresa, revendedor, whatsapp). Para verificar el dominio en Meta Business: `NEXT_PUBLIC_META_DOMAIN_VERIFICATION=<código>` o un registro TXT en la Zona DNS. En la vista previa `/web/` el pixel no carga porque la app tiene una política de seguridad que no permite scripts de Facebook; se prueba en upsala.com.ar.
 
 ### Formulario y confirmación por WhatsApp
 

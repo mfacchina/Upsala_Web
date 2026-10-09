@@ -61,7 +61,9 @@ export const API_URL = (process.env.NEXT_PUBLIC_API_URL ?? "https://upsala.aquac
  * eventos > Origenes de datos) o pasarlo en build con NEXT_PUBLIC_META_PIXEL_ID.
  * Vacio = sin pixel.
  */
-export const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "";
+// "Upsala CAPI" (negocio Upsala BA), confirmado por Matias el 09/10/2026. El mismo conjunto de
+// datos recibe los eventos del sitio (PageView, Lead, Contact) y los "Comprar" de la API de conversiones.
+export const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "2272461290182516";
 
 /**
  * Codigo de verificacion del dominio en Meta Business (Configuracion del negocio >
