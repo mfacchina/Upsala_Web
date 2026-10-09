@@ -1,0 +1,63 @@
+1:"$Sreact.fragment"
+2:I[7121,[],""]
+3:I[4581,[],""]
+4:"static/chunks/app/layout-61f79aaa91bc429a.js"
+5:I[2199,["177","$4"],"MetaPixel"]
+e:"static/chunks/94-fbb783ad081ad2a8.js"
+f:"static/chunks/554-aa0feee756fef10f.js"
+10:"static/chunks/569-2ea46e82575a4c6d.js"
+11:"static/chunks/524-ca0edbbc32b6ba66.js"
+12:"static/chunks/app/dispenser/page-f0791dcb5f2172c3.js"
+13:I[4019,["94","$e","554","$f","569","$10","524","$11","470","$12"],"Nav"]
+14:I[8655,["94","$e","554","$f","569","$10","524","$11","470","$12"],"DispenserPage"]
+23:"ViewportBoundary"
+24:I[484,[],"$23"]
+25:"MetadataBoundary"
+26:I[484,[],"$25"]
+27:"$Sreact.suspense"
+:HL["/_next/static/css/92de14b157f2a4f6.css","style"]
+:HL["/img/logo-azul.png","image"]
+:HL["/img/logo-blanco.png","image"]
+6:["$","img",null,{"height":"1","width":"1","style":{"display":"none"},"alt":"","src":"https://www.facebook.com/tr?id=2272461290182516&ev=PageView&noscript=1"}]
+7:T464,{"@context":"https://schema.org","@graph":[{"@type":"LocalBusiness","@id":"https://upsala.com.ar/#org","name":"Upsala BA","alternateName":"Upsala Agua Mineral Natural","url":"https://upsala.com.ar/","email":"ventas@upsala.com.ar","telephone":"+5491134495488","image":"https://upsala.com.ar/og.png","description":"Bidones de agua mineral natural de 12 y 20 litros y dispensers frío/calor con reparto a domicilio en la Ciudad de Buenos Aires. Envasada en origen en 9 de Julio, sin procesos artificiales. Registrate y te contactamos.","areaServed":{"@type":"City","name":"Ciudad Autónoma de Buenos Aires"},"address":{"@type":"PostalAddress","streetAddress":"Mosconi 3777","addressLocality":"Ciudad Autónoma de Buenos Aires","postalCode":"C1419","addressCountry":"AR"},"sameAs":["https://www.instagram.com/upsala.ba/"],"makesOffer":[{"@type":"Offer","itemOffered":{"@type":"Product","name":"Bidón de agua mineral natural 12 L"}},{"@type":"Offer","itemOffered":{"@type":"Product","name":"Bidón de agua mineral natural 20 L"}},{"@type":"Offer","itemOffered":{"@type":"Service","name":"Dispenser frío/calor en comodato"}}]}]}9:X
+c:X
+c:C
+d:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$1","c",{"children":[[["$","$L13",null,{"onDark":true}],["$","main",null,{"children":["$","$L14",null,{}]}],["$","footer",null,{"className":"bg-ink-950 pt-12 pb-28 text-white/60 sm:pb-12","children":[["$","div",null,{"className":"container-x grid gap-10 md:grid-cols-[1.2fr_1fr_1fr]","children":[["$","div",null,{"children":[["$","span",null,{"className":"inline-flex items-center gap-3","children":[["$","img",null,{"src":"/img/logo-blanco.png","alt":"Upsala","className":"h-10 w-auto","width":1500,"height":960}],["$","span",null,{"className":"hidden text-[10px] font-semibold uppercase tracking-[0.22em] sm:block text-white/70","children":["Agua mineral",["$","br",null,{}],"natural"]}]]}],["$","p",null,{"className":"mt-4 max-w-sm text-sm leading-relaxed","children":"Agua mineral natural envasada en origen en 9 de Julio y repartida a domicilio en la Ciudad de Buenos Aires."}]]}],["$","div",null,{"children":[["$","p",null,{"className":"text-xs font-semibold uppercase tracking-[0.18em] text-white/40","children":"Secciones"}],["$","ul",null,{"className":"mt-4 space-y-2 text-sm","children":[["$L15","$L16","$L17","$L18","$L19","$L1a"],"$L1b","$L1c"]}]]}],"$L1d"]}],"$L1e"]}],"$L1f","$L20"],null,"$L21"]}],"p":"$@22","v":null,"s":"$9"}}]]
+a:[["children",{"s":"dispenser","h":96,"d":{"r":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"p":"$@b","v":"$c","s":"$9"},"c":"$Qd"}]]
+0:{"t":{"t":{"s":"","h":80,"d":{"r":["$","$1","c",{"children":[[["$","link","0",{"rel":"stylesheet","href":"/_next/static/css/92de14b157f2a4f6.css","precedence":"next"}]],["$","html",null,{"lang":"es-AR","className":"__variable_d8ebd1 __variable_f8fef5","children":[["$","head",null,{"children":["$","script",null,{"dangerouslySetInnerHTML":{"__html":"document.documentElement.classList.add('js')"}}]}],["$","body",null,{"children":[["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}],"notFound":[["$","main",null,{"className":"flex min-h-screen flex-col items-center justify-center gap-6 bg-foam px-6 text-center","children":[["$","span",null,{"className":"inline-flex items-center gap-3","children":[["$","img",null,{"src":"/img/logo-azul.png","alt":"Upsala","className":"h-10 w-auto","width":1500,"height":960}],["$","span",null,{"className":"hidden text-[10px] font-semibold uppercase tracking-[0.22em] sm:block text-ink-700/70","children":["Agua mineral",["$","br",null,{}],"natural"]}]]}],["$","h1",null,{"className":"text-3xl font-extrabold text-ink-900","children":"Esta página no existe"}],["$","p",null,{"className":"max-w-md text-ink-900/65","children":"Puede que el enlace esté mal escrito. Volvé al inicio o registrate para recibir agua en tu casa."}],["$","div",null,{"className":"flex gap-3","children":[["$","a",null,{"href":"/","className":"btn-ghost-dark","children":"Ir al inicio"}],["$","a",null,{"href":"/registro/","className":"btn-primary","children":"Quiero agua en casa"}]]}]]}],[]]}],["$","$L5",null,{"id":"2272461290182516"}],["$","noscript",null,{"children":"$6"}],["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"$7"}}]]}]]}]]}],"p":"$@8","v":null,"s":"$9"},"c":"$Qa"},"h":{"r":["$","$1","h",{"children":[null,["$","$L24",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#1b3f5e"}]]}],["$","$L26",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$27",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Dispenser frío/calor en comodato, para tu casa o tu empresa | Upsala"}],["$","meta","1",{"name":"description","content":"Dispenser frío/calor con bidones de agua mineral natural. En casa el alquiler se bonifica con tu consumo; en empresas va sin cargo con el abono mensual, factura A y entrega programada en CABA."}],["$","meta","2",{"name":"application-name","content":"Upsala"}],["$","meta","3",{"name":"keywords","content":"agua mineral natural a domicilio,bidones de agua CABA,reparto de agua Buenos Aires,bidón 20 litros,bidón 12 litros,dispenser frío calor,agua mineral 9 de Julio,Upsala agua"}],["$","meta","4",{"name":"robots","content":"index, follow"}],["$","meta","5",{"name":"category","content":"food"}],["$","link","6",{"rel":"canonical","href":"https://upsala.com.ar/dispenser/"}],"$L28","$L29","$L2a","$L2b","$L2c","$L2d","$L2e","$L2f","$L30"]}]}],null]}],"$L31"]}],"p":"$@32","v":null,"s":"$9"}},"a":"$@33","u":"$@34","b":"fK4e1zG3-kJF7lFExnmXq"}
+35:I[7154,["94","$e","554","$f","569","$10","524","$11","470","$12"],"WhatsAppFloat"]
+36:I[8490,["94","$e","554","$f","569","$10","524","$11","470","$12"],"MobileCta"]
+37:I[484,[],"OutletBoundary"]
+39:I[6869,[],"IconMark"]
+15:["$","li","/#natural",{"children":["$","a",null,{"href":"/#natural","className":"transition hover:text-white","children":"Agua natural"}]}]
+16:["$","li","/#productos",{"children":["$","a",null,{"href":"/#productos","className":"transition hover:text-white","children":"Productos"}]}]
+17:["$","li","/dispenser/",{"children":["$","a",null,{"href":"/dispenser/","className":"transition hover:text-white","children":"Dispenser"}]}]
+18:["$","li","/#empresa",{"children":["$","a",null,{"href":"/#empresa","className":"transition hover:text-white","children":"La empresa"}]}]
+19:["$","li","/#revendedores",{"children":["$","a",null,{"href":"/#revendedores","className":"transition hover:text-white","children":"Revendedores"}]}]
+1a:["$","li","/#preguntas",{"children":["$","a",null,{"href":"/#preguntas","className":"transition hover:text-white","children":"Preguntas"}]}]
+1b:["$","li",null,{"children":["$","a",null,{"href":"/registro/","className":"transition hover:text-white","children":"Registro de clientes"}]}]
+1c:["$","li",null,{"children":["$","a",null,{"href":"/dispenser/#empresas","className":"transition hover:text-white","children":"Dispenser para empresas"}]}]
+1d:["$","div",null,{"children":[["$","p",null,{"className":"text-xs font-semibold uppercase tracking-[0.18em] text-white/40","children":"Contacto"}],["$","ul",null,{"className":"mt-4 space-y-2 text-sm","children":[["$","li",null,{"children":["$","a",null,{"href":"https://wa.me/5491134495488?text=Hola%20Upsala!%20Quiero%20agua%20mineral%20natural%20a%20domicilio.","target":"_blank","rel":"noopener","className":"transition hover:text-white","children":["Ventas (WhatsApp) ","11 3449-5488"]}]}],["$","li",null,{"children":["Gestión y administración ","11 7065-8458"]}],["$","li",null,{"children":["$","a",null,{"href":"mailto:ventas@upsala.com.ar","className":"transition hover:text-white","children":"ventas@upsala.com.ar"}]}],["$","li",null,{"children":["$","a",null,{"href":"https://www.instagram.com/upsala.ba/","target":"_blank","rel":"noopener","className":"transition hover:text-white","children":["Instagram ","@upsala.ba"]}]}],["$","li",null,{"className":"pt-2 text-xs leading-relaxed text-white/45","children":[["$","span",null,{"className":"block font-semibold text-white/55","children":"Planta embotelladora"}],"Villa Fournier, 9 de Julio (CP 6500), Provincia de Buenos Aires"]}],["$","li",null,{"className":"text-xs leading-relaxed text-white/45","children":[["$","span",null,{"className":"block font-semibold text-white/55","children":"Ventas y distribución"}],"Mosconi 3777, C1419, Ciudad Autónoma de Buenos Aires"]}]]}]]}]
+1e:["$","div",null,{"className":"container-x mt-10 flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between","children":[["$","p",null,{"children":["© ",2026," Upsala. Agua mineral natural. Todos los derechos reservados."]}],["$","p",null,{"children":"Promociones válidas para clientes nuevos en zonas con cobertura."}]]}]
+1f:["$","$L35",null,{}]
+20:["$","$L36",null,{"href":"#pedir","label":"Pedir dispenser"}]
+21:["$","$L37",null,{"children":["$","$27",null,{"name":"Next.MetadataOutlet","children":"$@38"}]}]
+28:["$","meta","7",{"property":"og:title","content":"Dispenser frío/calor Upsala"}]
+29:["$","meta","8",{"property":"og:description","content":"Agua fría y caliente al instante con agua mineral natural. Para tu casa o tu empresa, en CABA."}]
+2a:["$","meta","9",{"property":"og:url","content":"https://upsala.com.ar/dispenser/"}]
+2b:["$","meta","10",{"name":"twitter:card","content":"summary_large_image"}]
+2c:["$","meta","11",{"name":"twitter:title","content":"Upsala | Agua mineral natural a domicilio en Buenos Aires"}]
+2d:["$","meta","12",{"name":"twitter:description","content":"Bidones de agua mineral natural de 12 y 20 litros y dispensers frío/calor con reparto a domicilio en la Ciudad de Buenos Aires. Envasada en origen en 9 de Julio, sin procesos artificiales. Registrate y te contactamos."}]
+2e:["$","meta","13",{"name":"twitter:image","content":"https://upsala.com.ar/og.png"}]
+2f:["$","link","14",{"rel":"icon","href":"/icon.svg?9c7bba27aae395bb","type":"image/svg+xml","sizes":"any"}]
+30:["$","$L39","15",{}]
+31:["$","meta",null,{"name":"next-size-adjust","content":""}]
+9:300
+38:null
+34:true
+9:C
+33:0
+b:"$undefined"
+8:"$undefined"
+32:"$undefined"
+22:"$undefined"
