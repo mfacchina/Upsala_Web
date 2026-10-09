@@ -4,6 +4,9 @@
 DirectoryIndex index.html
 ErrorDocument 404 /404.html
 
+# El sitio se publica con Git (rama `deploy`): la carpeta .git no se sirve.
+RedirectMatch 404 /\.git
+
 <IfModule mod_mime.c>
   AddType video/mp4 .mp4
   AddType image/webp .webp

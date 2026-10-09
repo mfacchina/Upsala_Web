@@ -1,0 +1,47 @@
+# Arma el sitio y deja SOLO el resultado (el contenido de out/) en la rama `deploy`.
+# El hosting de DonWeb (Git de Ferozo) clona/actualiza esa rama dentro de public_html.
+# La rama `deploy` se reescribe entera en cada publicacion: no editarla a mano.
+name: Publicar sitio
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build (raiz del dominio, sin basePath)
+        run: npm run build
+        env:
+          NEXT_PUBLIC_BASE_PATH: ""
+
+      - name: Publicar out/ en la rama deploy
+        run: |
+          test -f out/index.html
+          test -f out/.htaccess
+          cd out
+          git init -q -b deploy
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Sitio publicado desde ${GITHUB_SHA::7}"
+          git push -q --force "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" deploy
+          echo "Rama deploy actualizada con $(git ls-files | wc -l) archivos"
