@@ -54,10 +54,20 @@ const EMPTY: Form = {
 type Coverage = "idle" | "covered" | "not-covered" | "unknown";
 type FieldKey = "zone" | "firstName" | "lastName" | "phone" | "email" | "cuil" | "address" | "bell" | "q";
 
-/** "20123456789" -> "20-12345678-9" (si tiene 11 digitos). */
-function formatCuil(v: string) {
+/**
+ * DNI (7 u 8 numeros) o CUIL/CUIT (11). Devuelve el tipo y el numero formateado:
+ * "30123456" -> DNI 30.123.456 · "20301234569" -> CUIL/CUIT 20-30123456-9. null si no es ninguno.
+ */
+function parseDoc(v: string): { kind: "DNI" | "CUIL/CUIT"; formatted: string } | null {
   const d = v.replace(/\D/g, "");
-  return d.length === 11 ? `${d.slice(0, 2)}-${d.slice(2, 10)}-${d.slice(10)}` : v.trim();
+  if (d.length === 11) return { kind: "CUIL/CUIT", formatted: `${d.slice(0, 2)}-${d.slice(2, 10)}-${d.slice(10)}` };
+  if (d.length === 7 || d.length === 8) return { kind: "DNI", formatted: Number(d).toLocaleString("es-AR") };
+  return null;
+}
+
+/** Formatea al salir del campo; si no es un documento valido lo deja como esta. */
+function formatDoc(v: string) {
+  return parseDoc(v)?.formatted ?? v.trim();
 }
 
 export function RegisterForm() {
@@ -101,7 +111,7 @@ export function RegisterForm() {
     if (!form.lastName.trim()) return { message: "Completá tu apellido.", field: "lastName" };
     if (form.phone.replace(/\D/g, "").length < 8) return { message: "Ingresá un celular válido, con código de área.", field: "phone" };
     if (!/^\S+@\S+\.\S+$/.test(form.email.trim())) return { message: "Ingresá un email válido.", field: "email" };
-    if (form.cuil.replace(/\D/g, "").length !== 11) return { message: "El CUIL tiene 11 números (ej: 20-12345678-9).", field: "cuil" };
+    if (!parseDoc(form.cuil)) return { message: "Ingresá tu DNI (7 u 8 números) o tu CUIL/CUIT (11 números).", field: "cuil" };
     if (!form.address.trim()) return { message: "Completá tu dirección (calle y número).", field: "address" };
     if (form.propertyType === "APARTMENT" && !form.bell.trim()) return { message: "Decinos qué timbre tocar (piso y depto).", field: "bell" };
     if (order.units === 0) return { message: "Elegí al menos un bidón.", field: "q" };
@@ -122,7 +132,7 @@ export function RegisterForm() {
         [
           ["Nombre", `${form.firstName.trim()} ${form.lastName.trim()}`],
           ["Teléfono", form.phone.trim()],
-          ["CUIL", formatCuil(form.cuil)],
+          ["DNI/CUIL/CUIT", formatDoc(form.cuil)],
           ["Email", form.email.trim()],
           ["Dirección", address + (form.propertyType === "APARTMENT" ? " (departamento)" : "")],
           ["Barrio", neighborhood],
@@ -146,14 +156,15 @@ export function RegisterForm() {
       document.getElementById(`f-${invalid.field}`)?.focus();
       return;
     }
-    const cuil = formatCuil(form.cuil);
+    const doc = parseDoc(form.cuil)!;
     const payload: RegistrationPayload = {
       kind: "CLIENT",
       firstName: form.firstName.trim(),
       lastName: form.lastName.trim(),
       phone: form.phone.trim(),
       email: form.email.trim(),
-      cuit: cuil,
+      // La app guarda en "cuit" solo CUIL/CUIT (11 digitos); el DNI queda en el comentario.
+      cuit: doc.kind === "CUIL/CUIT" ? doc.formatted : undefined,
       address: form.address.trim(),
       propertyType: form.propertyType,
       floor: form.propertyType === "APARTMENT" ? form.floor.trim() || undefined : undefined,
@@ -162,9 +173,9 @@ export function RegisterForm() {
       covered: coverage === "covered" ? true : coverage === "not-covered" ? false : null,
       requestedProduct: [order.text, form.dispenser && "dispenser F/C"].filter(Boolean).join(" + "),
       visitTimePreference: form.visit,
-      // CUIL, timbre y total tambien en el comentario, para que se vean en Nuevos Web.
+      // Documento, timbre y total tambien en el comentario, para que se vean en Nuevos Web.
       message: [
-        `CUIL ${cuil}`,
+        `${doc.kind} ${doc.formatted}`,
         form.propertyType === "APARTMENT" && `Timbre ${form.bell.trim()}`,
         `Total 1er pedido ${ars(order.total)}`,
         form.dispenser && "Le interesa el dispenser frío/calor",
@@ -373,8 +384,8 @@ export function RegisterForm() {
         <Field label="Email" required>
           <input id="f-email" className={cls("email")} type="email" inputMode="email" value={form.email} onChange={(e) => set("email", e.target.value)} placeholder="tu@email.com" autoComplete="email" />
         </Field>
-        <Field label="CUIL" required hint="11 números">
-          <input id="f-cuil" className={cls("cuil")} inputMode="numeric" value={form.cuil} onChange={(e) => set("cuil", e.target.value)} onBlur={(e) => set("cuil", formatCuil(e.target.value))} placeholder="Ej: 20-12345678-9" />
+        <Field label="DNI/CUIL/CUIT" required>
+          <input id="f-cuil" className={cls("cuil")} inputMode="numeric" value={form.cuil} onChange={(e) => set("cuil", e.target.value)} onBlur={(e) => set("cuil", formatDoc(e.target.value))} placeholder="Ej: 30123456 o 20-30123456-9" />
         </Field>
       </div>
 
