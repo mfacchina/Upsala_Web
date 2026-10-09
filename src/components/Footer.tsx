@@ -4,7 +4,7 @@ import { CONTACT, WHATSAPP_URL, asset } from "@/lib/site";
 
 export function Footer() {
   return (
-    <footer className="bg-ink-950 py-12 text-white/60">
+    <footer className="bg-ink-950 pt-12 pb-28 text-white/60 sm:pb-12">
       <div className="container-x grid gap-10 md:grid-cols-[1.2fr_1fr_1fr]">
         <div>
           <Logo tone="light" className="h-10" />

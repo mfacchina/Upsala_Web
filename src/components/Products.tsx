@@ -19,7 +19,7 @@ export function Products() {
                 <motion.div whileHover={{ scale: 1.04, rotate: -1.5 }} transition={{ type: "spring", stiffness: 200, damping: 14 }} className="relative mx-auto flex items-end justify-center" style={{ height: p.liters === 20 ? 300 : 260 }}>
                   <div className="absolute inset-x-6 bottom-2 h-8 rounded-full bg-brand-500/30 blur-xl" aria-hidden />
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={asset(p.image)} alt={p.name} className="relative h-full w-auto object-contain drop-shadow-[0_20px_30px_rgba(47,135,214,0.3)]" />
+                  <img loading="lazy" src={asset(p.image)} alt={p.name} className="relative h-full w-auto object-contain drop-shadow-[0_20px_30px_rgba(47,135,214,0.3)]" />
                 </motion.div>
                 <div>
                   <span className="eyebrow bg-white text-brand-700 ring-1 ring-brand-200">{p.name}</span>
@@ -76,7 +76,7 @@ export function Products() {
             </div>
             <div className="relative mx-auto h-40 w-40 shrink-0 overflow-hidden rounded-full ring-8 ring-white shadow-card sm:h-48 sm:w-48">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={asset("/img/foto-vaso.webp")} alt="Vaso de agua mineral natural Upsala" className="h-full w-full object-cover" />
+              <img loading="lazy" src={asset("/img/foto-vaso-m.webp")} alt="Vaso de agua mineral natural Upsala" className="h-full w-full object-cover" />
             </div>
           </div>
           <p className="border-t border-ink-900/5 px-7 py-4 text-center text-sm text-ink-900/60 sm:px-10">

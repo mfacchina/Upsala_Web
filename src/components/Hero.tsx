@@ -19,7 +19,7 @@ export function Hero() {
       {/* fondo: foto de agua + brillos */}
       <motion.div style={{ y: bgY }} className="absolute inset-0 -z-10" aria-hidden>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={asset("/img/hero-agua.png")} alt="" className="h-full w-full object-cover object-left-bottom opacity-90" />
+        <img src={asset("/img/hero-agua.webp")} alt="" className="h-full w-full object-cover object-left-bottom opacity-90" />
         <HeroVideo />
         <div className="absolute inset-0 bg-gradient-to-b from-white/80 via-white/55 to-foam" />
         <div className="absolute right-[-10%] top-[10%] h-[50vh] w-[50vw] rounded-full bg-aqua-300/30 blur-[120px]" />
@@ -96,7 +96,7 @@ export function Hero() {
 
         {/* bidon real + chips */}
         <div className="relative mx-auto flex w-full max-w-sm items-center justify-center lg:max-w-none">
-          <motion.div style={{ y: bottleY }} className="relative z-10 w-[230px] sm:w-[280px] lg:w-[330px]">
+          <motion.div style={{ y: bottleY }} className="relative z-10 w-[190px] sm:w-[280px] lg:w-[330px]">
             <div className="absolute inset-x-8 bottom-0 h-10 rounded-full bg-brand-500/40 blur-2xl" aria-hidden />
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 30 }}
@@ -105,7 +105,7 @@ export function Hero() {
               className="animate-float-slow drop-shadow-[0_30px_40px_rgba(47,135,214,0.35)]"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={asset("/img/bidon-20.png")} alt="Bidón Upsala de 20 litros" className="w-full" width={239} height={450} />
+              <img src={asset("/img/bidon-20.webp")} alt="Bidón Upsala de 20 litros" className="w-full" width={239} height={450} />
             </motion.div>
             {/* brillo que recorre el bidon */}
             {!reduce && (

@@ -54,12 +54,12 @@ export function About() {
         <Reveal delay={0.15} className="relative space-y-6">
           <div className="relative overflow-hidden rounded-[2rem] shadow-card">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={asset("/img/foto-familia-bidon.webp")} alt="Bidón Upsala de 20 litros en la cocina de una familia" className="aspect-[5/4] w-full object-cover object-top" />
+            <img loading="lazy" src={asset("/img/foto-familia-bidon-m.webp")} alt="Bidón Upsala de 20 litros en la cocina de una familia" className="aspect-[5/4] w-full object-cover object-top" />
             <span className="absolute bottom-4 left-4 rounded-full bg-white/85 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-ink-900 backdrop-blur">Agua mineral natural en casa</span>
           </div>
           <div className="overflow-hidden rounded-[2rem] bg-gradient-to-br from-ink-900 to-brand-800 p-8 text-white shadow-float sm:p-10">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={asset("/img/logo-blanco.png")} alt="Upsala" className="h-14 w-auto opacity-95" />
+            <img loading="lazy" src={asset("/img/logo-blanco.png")} alt="Upsala" className="h-14 w-auto opacity-95" />
             <p className="mt-6 text-sm uppercase tracking-[0.2em] text-aqua-300">Agua mineral natural</p>
 
             <div className="mt-8 space-y-6">

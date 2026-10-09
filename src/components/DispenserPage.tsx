@@ -63,7 +63,7 @@ export function DispenserPage() {
             <div className="absolute inset-x-10 bottom-4 h-14 rounded-full bg-brand-500/40 blur-2xl" aria-hidden />
             <div className="relative overflow-hidden rounded-[2rem] ring-1 ring-white/15 shadow-float">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={asset("/img/foto-dispenser-mujer.webp")} alt="Dispenser frío/calor Upsala en una cocina" className="aspect-[3/4] w-full object-cover" />
+              <img loading="lazy" src={asset("/img/foto-dispenser-mujer-m.webp")} alt="Dispenser frío/calor Upsala en una cocina" className="aspect-[3/4] w-full object-cover" />
               <span className="absolute left-4 top-4 rounded-full bg-sun px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-ink-900">Comodato</span>
             </div>
           </motion.div>
@@ -94,20 +94,20 @@ export function DispenserPage() {
               <motion.div key="home" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }} transition={{ duration: 0.35 }} className="mt-14 grid items-start gap-12 lg:grid-cols-[1.1fr_0.9fr]">
                 <div>
                   <SectionHeading eyebrow={DISPENSER_PAGE.segments.home} title={DISPENSER_PAGE.home.title} text={DISPENSER_PAGE.home.text} align="left" />
-                  <div className="mt-8 flex items-end gap-4">
+                  <div className="mt-8 flex flex-col gap-1 sm:flex-row sm:items-end sm:gap-4">
                     <div>
                       <span className="block text-xs font-semibold uppercase tracking-[0.18em] text-brand-700">{DISPENSER.priceLabel}</span>
                       <span className="font-display text-5xl font-extrabold text-ink-900">{DISPENSER.price}</span>
                     </div>
-                    <p className="max-w-xs pb-2 text-sm text-ink-900/60">{DISPENSER.priceNote}</p>
+                    <p className="max-w-xs text-sm text-ink-900/60 sm:pb-2">{DISPENSER.priceNote}</p>
                   </div>
-                  <ol className="mt-6 grid gap-3 sm:grid-cols-3">
+                  <ol className="mt-6 grid grid-cols-3 gap-2 sm:gap-3">
                     {DISPENSER.tiers.map((t) => (
-                      <li key={t.range} className={`relative rounded-2xl p-4 ${t.highlight ? "bg-gradient-to-br from-aqua-400 to-brand-500 text-ink-900 shadow-glow" : "border border-ink-900/8 bg-foam"}`}>
-                        {t.highlight && <span className="absolute -top-3 left-4 rounded-full bg-sun px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-ink-900">Gratis</span>}
-                        <span className={`block text-sm font-semibold ${t.highlight ? "text-ink-900/80" : "text-ink-900/60"}`}>{t.range}</span>
-                        <span className={`mt-1 block font-display font-extrabold ${t.bonus.length > 5 ? "text-lg leading-tight" : "text-3xl"} text-ink-900`}>{t.bonus}</span>
-                        <span className={`block text-xs ${t.highlight ? "text-ink-900/70" : "text-ink-900/50"}`}>{t.pay}</span>
+                      <li key={t.range} className={`relative rounded-2xl px-3 pb-3 pt-4 sm:p-4 ${t.highlight ? "bg-gradient-to-br from-aqua-400 to-brand-500 text-ink-900 shadow-glow" : "border border-ink-900/8 bg-foam"}`}>
+                        {t.highlight && <span className="absolute -top-3 left-3 rounded-full bg-sun px-2 py-0.5 text-[10px] sm:left-4 sm:px-2.5 font-bold uppercase tracking-wider text-ink-900">Gratis</span>}
+                        <span className={`block text-xs font-semibold leading-tight sm:text-sm ${t.highlight ? "text-ink-900/80" : "text-ink-900/60"}`}>{t.range}</span>
+                        <span className={`mt-1 block font-display font-extrabold ${t.bonus.length > 5 ? "text-sm leading-tight sm:text-lg" : "text-2xl sm:text-3xl"} text-ink-900`}>{t.bonus}</span>
+                        <span className={`mt-0.5 block text-[11px] leading-tight sm:text-xs ${t.highlight ? "text-ink-900/70" : "text-ink-900/50"}`}>{t.pay}</span>
                       </li>
                     ))}
                   </ol>
@@ -192,7 +192,7 @@ export function DispenserPage() {
             <SectionHeading eyebrow={DISPENSER_PAGE.form.eyebrow} title={DISPENSER_PAGE.form.title} text={DISPENSER_PAGE.form.text} align="left" />
             <div className="relative mt-8 overflow-hidden rounded-[2rem] shadow-card">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={asset("/img/foto-dispenser-vaso.webp")} alt="Vaso servido del dispenser Upsala" className="aspect-[4/5] w-full object-cover" />
+              <img loading="lazy" src={asset("/img/foto-dispenser-vaso.webp")} alt="Vaso servido del dispenser Upsala" className="aspect-[4/5] w-full object-cover" />
             </div>
             <a href={waUrl("Hola Upsala! Quiero un dispenser frío/calor.")} target="_blank" rel="noopener" className="btn-wa mt-6 !px-5 !py-3 !text-sm">
               <WhatsAppIcon className="h-4 w-4" />

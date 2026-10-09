@@ -24,7 +24,7 @@ export function WhatsAppFloat() {
           whileHover={{ scale: 1.06 }}
           whileTap={{ scale: 0.96 }}
           aria-label="Escribir por WhatsApp"
-          className="btn-wa fixed bottom-5 left-5 z-40 !px-4 !py-3 !text-sm shadow-float sm:bottom-7 sm:left-7"
+          className="btn-wa fixed bottom-5 left-5 z-40 !px-4 !py-3 !text-sm shadow-float max-sm:!hidden sm:bottom-7 sm:left-7"
         >
           <WhatsAppIcon className="h-5 w-5" />
           <span className="hidden sm:inline">WhatsApp</span>

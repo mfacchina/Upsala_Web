@@ -302,7 +302,8 @@ export function RegisterForm() {
               <div>
                 <span className="block font-semibold text-ink-900">{label}</span>
                 <span className="block text-xs text-ink-900/55">
-                  {ars(PRICE[k])} · {hint}
+                  {ars(PRICE[k])}
+                  <span className="hidden sm:inline"> · {hint}</span>
                 </span>
               </div>
               <div className="flex items-center gap-2">

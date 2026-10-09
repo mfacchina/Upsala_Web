@@ -28,7 +28,7 @@ export function Natural() {
         <div className="grid items-center gap-14 lg:grid-cols-[0.8fr_1.2fr]">
           <Reveal className="relative mx-auto w-full max-w-xs lg:max-w-sm">
             <div className="absolute inset-x-10 bottom-4 h-12 rounded-full bg-brand-400/40 blur-2xl" aria-hidden />
-            <VideoBlock src="/video/comercial.mp4" poster="/img/foto-vaso.webp" controls={false} className="aspect-[4/5] w-full" label="Agua mineral natural Upsala" />
+            <VideoBlock src="/video/comercial.mp4" poster="/img/foto-vaso-m.webp" className="aspect-[4/5] w-full" label="Agua mineral natural Upsala" />
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}

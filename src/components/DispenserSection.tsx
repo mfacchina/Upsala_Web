@@ -31,7 +31,7 @@ export function DispenserSection() {
           {/* escala de bonificacion por consumo */}
           <Reveal delay={0.15} className="mt-8">
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-white/55">Bonificación según tu consumo mensual</p>
-            <ol className="mt-3 grid gap-3 sm:grid-cols-3">
+            <ol className="mt-4 grid grid-cols-3 gap-2 sm:gap-3">
               {DISPENSER.tiers.map((t, i) => (
                 <motion.li
                   key={t.range}
@@ -39,14 +39,14 @@ export function DispenserSection() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 0.1 + i * 0.1, duration: 0.5 }}
-                  className={`relative rounded-2xl p-4 ${t.highlight ? "bg-gradient-to-br from-aqua-400 to-brand-500 text-ink-900 shadow-glow" : "glass-dark"}`}
+                  className={`relative rounded-2xl px-3 pb-3 pt-4 sm:p-4 ${t.highlight ? "bg-gradient-to-br from-aqua-400 to-brand-500 text-ink-900 shadow-glow" : "glass-dark"}`}
                 >
                   {t.highlight && (
-                    <span className="absolute -top-3 left-4 rounded-full bg-sun px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-ink-900">Gratis</span>
+                    <span className="absolute -top-3 left-3 rounded-full bg-sun px-2 py-0.5 text-[10px] sm:left-4 sm:px-2.5 font-bold uppercase tracking-wider text-ink-900">Gratis</span>
                   )}
-                  <span className={`block text-sm font-semibold ${t.highlight ? "text-ink-900/80" : "text-white/70"}`}>{t.range}</span>
-                  <span className={`mt-1 block font-display font-extrabold ${t.bonus.length > 5 ? "text-lg leading-tight" : "text-3xl"} ${t.highlight ? "text-ink-900" : "text-white"}`}>{t.bonus}</span>
-                  <span className={`block text-xs ${t.highlight ? "text-ink-900/70" : "text-white/55"}`}>{t.pay}</span>
+                  <span className={`block text-xs font-semibold leading-tight sm:text-sm ${t.highlight ? "text-ink-900/80" : "text-white/70"}`}>{t.range}</span>
+                  <span className={`mt-1 block font-display font-extrabold ${t.bonus.length > 5 ? "text-sm leading-tight sm:text-lg" : "text-2xl sm:text-3xl"} ${t.highlight ? "text-ink-900" : "text-white"}`}>{t.bonus}</span>
+                  <span className={`mt-0.5 block text-[11px] leading-tight sm:text-xs ${t.highlight ? "text-ink-900/70" : "text-white/55"}`}>{t.pay}</span>
                 </motion.li>
               ))}
             </ol>
@@ -79,7 +79,7 @@ export function DispenserSection() {
           {/* foto real: dispenser en una cocina */}
           <motion.a href={asset("/dispenser/")} whileHover={{ y: -6 }} className="relative block overflow-hidden rounded-[2rem] ring-1 ring-white/15 shadow-float">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={asset("/img/foto-dispenser-mujer.webp")} alt="Dispenser frío/calor Upsala en una cocina" className="aspect-[3/4] w-full object-cover" />
+            <img loading="lazy" src={asset("/img/foto-dispenser-mujer-m.webp")} alt="Dispenser frío/calor Upsala en una cocina" className="aspect-[3/4] w-full object-cover" />
             <span className="absolute left-5 top-5 rounded-full bg-sun px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-ink-900">Comodato</span>
             <span className="absolute bottom-5 right-5 rounded-full bg-ink-900/60 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-white ring-1 ring-white/15 backdrop-blur">Con bidón de 20 L</span>
           </motion.a>

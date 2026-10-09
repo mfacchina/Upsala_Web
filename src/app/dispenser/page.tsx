@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Nav } from "@/components/Nav";
 import { Footer } from "@/components/Footer";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
+import { MobileCta } from "@/components/MobileCta";
 import { DispenserPage } from "@/components/DispenserPage";
 
 export const metadata: Metadata = {
@@ -21,6 +22,7 @@ export default function Page() {
       </main>
       <Footer />
       <WhatsAppFloat />
+      <MobileCta href="#pedir" label="Pedir dispenser" />
     </>
   );
 }

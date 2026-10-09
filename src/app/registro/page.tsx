@@ -29,19 +29,27 @@ export default function RegistroPage() {
         </a>
       </header>
 
-      <div className="container-x grid gap-8 pb-16 pt-6 lg:grid-cols-[0.8fr_1.2fr] lg:gap-12">
+      {/* Celular: titulo y promo compactos -> formulario -> condiciones (la gente llega desde
+          un anuncio y tiene que ver el formulario enseguida). Compu: titulo y condiciones a la
+          izquierda, formulario a la derecha. */}
+      <div className="container-x grid gap-6 pb-16 pt-2 sm:pt-6 lg:grid-cols-[0.8fr_1.2fr] lg:grid-rows-[auto_1fr] lg:gap-x-12 lg:gap-y-6">
         <div>
-          <span className="eyebrow bg-white text-brand-700 ring-1 ring-brand-200">{REGISTER.eyebrow}</span>
-          <h1 className="mt-5 text-3xl font-extrabold leading-tight text-ink-900 sm:text-4xl">
+          <span className="eyebrow hidden bg-white text-brand-700 ring-1 ring-brand-200 sm:inline-flex">{REGISTER.eyebrow}</span>
+          <h1 className="text-2xl font-extrabold leading-tight text-ink-900 sm:mt-5 sm:text-4xl">
             Agua mineral natural, <span className="bg-gradient-to-r from-brand-600 to-aqua-500 bg-clip-text text-transparent">en la puerta de tu casa.</span>
           </h1>
-          <p className="mt-4 text-ink-900/65">{REGISTER.text}</p>
-          <div className="mt-6 rounded-3xl bg-gradient-to-br from-brand-600 to-ink-900 p-6 text-white shadow-float">
-            <span className="rounded-full bg-sun px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-ink-900">{PROMO.badge}</span>
-            <p className="mt-3 font-display text-3xl font-extrabold">{PROMO.title}</p>
-            <p className="mt-1 text-sm text-white/75">{PROMO.text}</p>
+          <p className="mt-3 hidden text-ink-900/65 sm:block">{REGISTER.text}</p>
+          <div className="mt-4 flex items-center gap-3 rounded-2xl bg-gradient-to-br from-brand-600 to-ink-900 px-4 py-3 text-white shadow-float sm:mt-6 sm:block sm:rounded-3xl sm:p-6">
+            <span className="shrink-0 rounded-full bg-sun px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-ink-900">{PROMO.badge}</span>
+            <p className="font-display text-lg font-extrabold leading-tight sm:mt-3 sm:text-3xl">{PROMO.title}</p>
+            <p className="mt-1 hidden text-sm text-white/75 sm:block">{PROMO.text}</p>
           </div>
-          <ul className="mt-6 space-y-2.5 text-sm text-ink-900/75">
+        </div>
+        <div className="rounded-[2rem] border border-ink-900/5 bg-white p-5 shadow-card sm:p-9 lg:col-start-2 lg:row-span-2 lg:row-start-1">
+          <RegisterForm />
+        </div>
+        <div className="lg:col-start-1 lg:row-start-2">
+          <ul className="space-y-2.5 text-sm text-ink-900/75">
             <li>
               ✓ <strong className="text-ink-900">Bidón 20 L {ars(PRICE.b20)}</strong> y <strong className="text-ink-900">12 L {ars(PRICE.b12)}</strong>, precio final
             </li>
@@ -52,11 +60,8 @@ export default function RegistroPage() {
           </ul>
           <div className="mt-8 hidden overflow-hidden rounded-[2rem] shadow-card lg:block">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={asset("/img/foto-familia-bidon.webp")} alt="Bidón Upsala de 20 litros en la cocina de una familia" className="aspect-[4/5] w-full object-cover object-top" />
+            <img loading="lazy" src={asset("/img/foto-familia-bidon-m.webp")} alt="Bidón Upsala de 20 litros en la cocina de una familia" className="aspect-[4/5] w-full object-cover object-top" />
           </div>
-        </div>
-        <div className="rounded-[2rem] border border-ink-900/5 bg-white p-6 shadow-card sm:p-9">
-          <RegisterForm />
         </div>
       </div>
 

@@ -14,6 +14,7 @@ import { FinalCta } from "@/components/FinalCta";
 import { Footer } from "@/components/Footer";
 import { ScrollBottle } from "@/components/ScrollBottle";
 import { WhatsAppFloat } from "@/components/WhatsAppFloat";
+import { MobileCta } from "@/components/MobileCta";
 
 export default function Page() {
   return (
@@ -35,6 +36,7 @@ export default function Page() {
       </main>
       <Footer />
       <WhatsAppFloat />
+      <MobileCta />
       <ScrollBottle />
     </>
   );

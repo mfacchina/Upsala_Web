@@ -24,7 +24,7 @@ export function ScrollBottle() {
           whileTap={{ scale: 0.96 }}
           aria-label="Volver arriba"
           title="Volver arriba"
-          className="fixed bottom-5 right-5 z-40 flex h-16 w-11 items-end justify-center rounded-2xl bg-white/80 p-1 shadow-card ring-1 ring-ink-900/10 backdrop-blur sm:bottom-7 sm:right-7"
+          className="fixed bottom-5 right-5 z-40 flex h-16 w-11 max-sm:!hidden items-end justify-center rounded-2xl bg-white/80 p-1 shadow-card ring-1 ring-ink-900/10 backdrop-blur sm:bottom-7 sm:right-7"
         >
           <Bidon level={level} className="h-full w-auto" />
         </motion.button>

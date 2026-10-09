@@ -74,23 +74,23 @@ export const PRODUCTS = {
   items: [
     {
       key: "b12",
-      name: "Bidón 12 L",
+      name: "Bidón 12\u00a0L",
       liters: 12,
       price: 7250,
       title: "Para hogares y departamentos",
       text: "Fácil de instalar y de cambiar. Entra en cualquier dispenser y se levanta sin esfuerzo.",
       bullets: ["Ideal para 1 a 3 personas", "Liviano: lo cambia cualquiera", "Apto dispenser y sifón eléctrico"],
-      image: "/img/bidon-12.png",
+      image: "/img/bidon-12.webp",
     },
     {
       key: "b20",
-      name: "Bidón 20 L",
+      name: "Bidón 20\u00a0L",
       liters: 20,
       price: 9700,
       title: "Para consumos grandes",
       text: "El clásico de oficinas, consultorios, gimnasios y familias numerosas. Más litros por visita.",
       bullets: ["Ideal para oficinas y familias", "Menos recambios por semana", "Mejor precio por litro"],
-      image: "/img/bidon-20.png",
+      image: "/img/bidon-20.webp",
     },
   ] satisfies Product[],
 };
@@ -101,7 +101,7 @@ export const DISPENSER = {
   text: "Te instalamos un dispenser frío/calor en comodato con tu bidón de 20 litros. Sin comprar equipo, sin service: si falla, lo cambiamos.",
   priceLabel: "Alquiler mensual",
   price: "$\u00a015.000",
-  priceNote: "por mes, y se bonifica según los bidones de 20 L que consumís en el mes",
+  priceNote: "por mes, y se bonifica según los bidones de 20\u00a0L que consumís en el mes",
   /** Escala de bonificación por consumo mensual de bidones. */
   tiers: [
     { range: "6 o más bidones", bonus: "100%", pay: "No pagás alquiler", highlight: true },
@@ -123,13 +123,13 @@ export const DISPENSER_PAGE = {
   segments: { home: "Para tu casa", business: "Para tu empresa" },
   home: {
     title: "En casa: el alquiler se paga solo con tu consumo",
-    text: "El dispenser cuesta $\u00a015.000 por mes, pero se bonifica según los bidones de 20 L que consumís. Una familia que toma 6 bidones al mes no paga alquiler.",
-    points: ["Instalación y retiro sin cargo", "Cambio del equipo si tiene una falla", "Sin contrato: lo devolvés cuando quieras", "Consumo mínimo: 2 bidones de 20 L por mes"],
+    text: "El dispenser cuesta $\u00a015.000 por mes, pero se bonifica según los bidones de 20\u00a0L que consumís. Una familia que toma 6 bidones al mes no paga alquiler.",
+    points: ["Instalación y retiro sin cargo", "Cambio del equipo si tiene una falla", "Sin contrato: lo devolvés cuando quieras", "Consumo mínimo: 2 bidones de 20\u00a0L por mes"],
   },
   business: {
     title: "En tu empresa: abono mensual con el dispenser sin cargo",
     text: "Para oficinas, consultorios, estudios, comercios, gimnasios y colegios armamos un abono mensual con la cantidad que realmente consumen. El dispenser va incluido, sin alquiler ni instalación, durante toda la relación. Entrega programada en día fijo y una sola factura A con IVA discriminado.",
-    reference: "Como referencia, una persona en una oficina consume alrededor de un bidón de 20 L por mes. Dimensionamos el abono con ese dato y lo ajustamos después del primer mes real.",
+    reference: "Como referencia, una persona en una oficina consume alrededor de un bidón de 20\u00a0L por mes. Dimensionamos el abono con ese dato y lo ajustamos después del primer mes real.",
     plans: [
       { people: "Hasta 25 personas", bidones: 12, dispensers: "1 dispenser", price: 116400, promo: 58200 },
       { people: "De 25 a 45 personas", bidones: 20, dispensers: "1 o 2 dispensers", price: 194000, promo: 97000 },
@@ -142,7 +142,7 @@ export const DISPENSER_PAGE = {
       "Entrega programada, retiro de envases vacíos, service o reemplazo del equipo ante cualquier falla",
       "Factura A con IVA discriminado, pago por transferencia a 15 días",
       "En enero y febrero, si no necesitan, se suspende la entrega y no se factura",
-      "Se pueden combinar bidones de 20 y 12 L dentro del mismo abono",
+      "Se pueden combinar bidones de 20 y 12\u00a0L dentro del mismo abono",
     ],
     priceNote: "Precios finales con IVA incluido, vigentes a agosto de 2026, sujetos a revisión trimestral con 30 días de aviso.",
   },
@@ -156,7 +156,7 @@ export const DISPENSER_PAGE = {
   faq: [
     { q: "¿El dispenser tiene costo de instalación?", a: "No. Lo llevamos, lo instalamos y queda funcionando el mismo día, sin cargo. Para empresas tampoco tiene alquiler." },
     { q: "¿Qué pasa si el dispenser falla?", a: "Lo reemplazamos sin cargo. El service está incluido tanto en casas como en empresas." },
-    { q: "¿Puedo combinar bidones de 20 y de 12 litros?", a: "Sí. El dispenser va con el de 20 L, pero el abono puede incluir bidones de 12 L en la proporción que les convenga." },
+    { q: "¿Puedo combinar bidones de 20 y de 12 litros?", a: "Sí. El dispenser va con el de 20\u00a0L, pero el abono puede incluir bidones de 12\u00a0L en la proporción que les convenga." },
     { q: "¿Hay permanencia?", a: "No. En casa lo devolvés cuando quieras. En empresas, si no les sirve retiramos el equipo sin costo de salida." },
   ],
 };
@@ -226,7 +226,7 @@ export const SERVICE = {
     {
       key: "precio",
       title: "Precio claro",
-      text: "Bidón de 20 L $\u00a09.700 y de 12 L $\u00a07.250, precio final. En tu primer pedido, un bidón va al 50%.",
+      text: "Bidón de 20\u00a0L $\u00a09.700 y de 12\u00a0L $\u00a07.250, precio final. En tu primer pedido, un bidón va al 50%.",
     },
     {
       key: "minimo",
@@ -258,7 +258,7 @@ export const REGISTER = {
   successNotCovered:
     "Todavía no tenemos reparto en tu barrio, pero guardamos tus datos: en cuanto lleguemos te avisamos.",
   privacy: "Tus datos son confidenciales y solo los usamos para coordinar tu entrega.",
-  products: ["Bidón 12 L", "Bidón 20 L", "Dispenser frío/calor + bidón 20 L", "Todavía no sé"],
+  products: ["Bidón 12\u00a0L", "Bidón 20\u00a0L", "Dispenser frío/calor + bidón 20\u00a0L", "Todavía no sé"],
 };
 
 export const RESELLERS = {
@@ -287,11 +287,11 @@ export const FAQ = [
   },
   {
     q: "¿Hay un mínimo de pedido o un contrato?",
-    a: "Para los bidones, no: pedís lo que necesitás, cuando lo necesitás, y el reparto te avisa por WhatsApp antes de cada visita. El único mínimo es para el dispenser frío/calor en comodato: 2 bidones de 20 L por mes.",
+    a: "Para los bidones, no: pedís lo que necesitás, cuando lo necesitás, y el reparto te avisa por WhatsApp antes de cada visita. El único mínimo es para el dispenser frío/calor en comodato: 2 bidones de 20\u00a0L por mes.",
   },
   {
     q: "¿Cómo funciona el dispenser frío/calor?",
-    a: "Te lo instalamos en comodato por $\u00a015.000 al mes, que se bonifican según tu consumo: con 6 o más bidones de 20 L al mes no pagás alquiler, con 4 o 5 pagás la mitad y con 2 o 3 pagás el alquiler completo. El consumo mínimo es de 2 bidones por mes. Si el equipo tiene una falla, lo cambiamos sin cargo.",
+    a: "Te lo instalamos en comodato por $\u00a015.000 al mes, que se bonifican según tu consumo: con 6 o más bidones de 20\u00a0L al mes no pagás alquiler, con 4 o 5 pagás la mitad y con 2 o 3 pagás el alquiler completo. El consumo mínimo es de 2 bidones por mes. Si el equipo tiene una falla, lo cambiamos sin cargo.",
   },
   {
     q: "¿Cómo y cuándo pago?",
@@ -307,7 +307,7 @@ export const FAQ = [
   },
   {
     q: "¿Cuánto sale el primer pedido?",
-    a: "El bidón de 20 L sale $\u00a09.700 y el de 12 L $\u00a07.250. En tu primer pedido, un bidón va al 50%: el formulario te calcula el total antes de confirmar.",
+    a: "El bidón de 20\u00a0L sale $\u00a09.700 y el de 12\u00a0L $\u00a07.250. En tu primer pedido, un bidón va al 50%: el formulario te calcula el total antes de confirmar.",
   },
   {
     q: "¿Tengo que estar en casa?",
