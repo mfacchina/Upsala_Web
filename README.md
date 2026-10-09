@@ -74,9 +74,13 @@ El dominio y el mail están en DonWeb (panel Ferozo, cuenta `c2700043`, DNS ns3/
 
 Con el ID del pixel (Administrador de eventos de Meta), buildear con `NEXT_PUBLIC_META_PIXEL_ID=<id>`. Eventos: `PageView` en cada página, `Lead` cuando un formulario se guarda en la app (`content_name`: cliente, dispenser_casa, dispenser_empresa, revendedor) y `Contact` en cada click a WhatsApp (`content_name`: confirmar_pedido, confirmar_dispenser_casa, confirmar_dispenser_empresa, revendedor, whatsapp). Para verificar el dominio en Meta Business: `NEXT_PUBLIC_META_DOMAIN_VERIFICATION=<código>` o un registro TXT en la Zona DNS. En la vista previa `/web/` el pixel no carga porque la app tiene una política de seguridad que no permite scripts de Facebook; se prueba en upsala.com.ar.
 
-### Confirmar por WhatsApp
+### Formulario y confirmación por WhatsApp
 
-Después de enviar cualquier formulario, la pantalla de éxito muestra un botón que abre el chat de pedidos (`WHATSAPP_ORDERS` en `src/lib/site.ts`, hoy administración 11 7065-8458) con todos los datos ya escritos. El registro se guarda en la app **antes**, así que si la persona no toca el botón igual aparece en Clientes > Nuevos Web.
+El formulario principal pide barrio (con el día de reparto al instante), cantidad de bidones de 20 y 12 L (hasta 4 de cada uno) con calculadora del primer pedido, nombre, apellido, celular, email, CUIL, dirección (y piso/timbre si es departamento), horario preferido y comentarios. Precios y regla de la promo en `src/lib/order.ts`: 50% en **un solo bidón** del primer pedido, sobre uno de 20 L si hay; si no, sobre uno de 12 L.
+
+Al tocar **Confirmar pedido por WhatsApp** el registro se guarda en la app (Clientes > Nuevos Web) y en la misma pestaña se abre el WhatsApp de **ventas** (`WHATSAPP_ORDERS` = 11 3449-5488, lo atiende el bot) con todo el pedido escrito; la persona solo toca Enviar. Si la app no responde, igual abre WhatsApp con el mensaje completo. Los formularios de dispenser y revendedores hacen lo mismo. El WhatsApp de gestión (11 7065-8458) solo se muestra en el footer.
+
+El mensaje arranca siempre con "Hola Upsala! Quiero confirmar mi pedido desde la web." y sigue con líneas `*Campo:* valor` (Nombre, Teléfono, CUIL, Email, Dirección, Barrio, Día de reparto, Horario preferido, Pedido, Total primer pedido, Dispenser frío/calor, Comentarios), por si el bot las quiere leer.
 
 Los formularios siguen llegando a la app: el navegador llama a `https://upsala.aquacontrol.aginet.com.ar/api/public/registro`, que ya acepta `https://upsala.com.ar` y `https://www.upsala.com.ar`. Para actualizar el sitio, repetir los pasos 1 y 2.
 

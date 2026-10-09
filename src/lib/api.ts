@@ -35,6 +35,8 @@ export type RegistrationPayload = {
   visitTimePreference?: "MORNING" | "AFTERNOON" | "INDIFFERENT";
   message?: string;
   source?: string;
+  /** CUIL/CUIT. La app lo guarda cuando su API lo acepte; mientras, va tambien en `message`. */
+  cuit?: string;
   website?: string;
 };
 
@@ -42,9 +44,16 @@ export type RegistrationResult = { ok: true; id?: string; covered: boolean | nul
 
 export class ApiError extends Error {
   field: string | null;
-  constructor(message: string, field: string | null = null) {
+  /** HTTP status. 0 = no hubo conexion. 400/429 = datos o intentos (hay que corregir); 0 o 5xx = falla del sistema. */
+  status: number;
+  constructor(message: string, field: string | null = null, status = 0) {
     super(message);
     this.field = field;
+    this.status = status;
+  }
+  /** La app no pudo recibir el registro por un problema propio (no por los datos de la persona). */
+  get isSystemFailure() {
+    return this.status === 0 || this.status >= 500;
   }
 }
 
@@ -93,7 +102,7 @@ export async function submitRegistration(payload: RegistrationPayload): Promise<
   }
   const data = (await res.json().catch(() => ({}))) as { ok?: boolean; error?: string; field?: string | null; covered?: boolean | null; day?: string | null; id?: string };
   if (!res.ok || !data.ok) {
-    throw new ApiError(data.error ?? "No pudimos guardar tu registro. Escribinos por WhatsApp.", data.field ?? null);
+    throw new ApiError(data.error ?? "No pudimos guardar tu registro. Escribinos por WhatsApp.", data.field ?? null, res.status);
   }
   return { ok: true, id: data.id, covered: data.covered ?? null, day: data.day ?? null };
 }

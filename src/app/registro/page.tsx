@@ -4,6 +4,7 @@ import { RegisterForm } from "@/components/RegisterForm";
 import { WhatsAppIcon } from "@/components/ui";
 import { PROMO, REGISTER } from "@/lib/content";
 import { CONTACT, WHATSAPP_URL, asset } from "@/lib/site";
+import { PRICE, ars } from "@/lib/order";
 
 export const metadata: Metadata = {
   title: "Registrate y recibí agua mineral natural en tu casa",
@@ -40,11 +41,14 @@ export default function RegistroPage() {
             <p className="mt-3 font-display text-3xl font-extrabold">{PROMO.title}</p>
             <p className="mt-1 text-sm text-white/75">{PROMO.text}</p>
           </div>
-          <ul className="mt-6 space-y-2 text-sm text-ink-900/70">
-            <li>✓ Bidones de 12 y 20 litros, retornables</li>
-            <li>✓ Dispenser frío/calor en comodato</li>
-            <li>✓ Sin mínimos ni contratos para los bidones</li>
-            <li>✓ Te avisamos por WhatsApp antes de cada visita</li>
+          <ul className="mt-6 space-y-2.5 text-sm text-ink-900/75">
+            <li>
+              ✓ <strong className="text-ink-900">Bidón 20 L {ars(PRICE.b20)}</strong> y <strong className="text-ink-900">12 L {ars(PRICE.b12)}</strong>, precio final
+            </li>
+            <li>✓ Un día fijo de reparto por barrio, <strong className="text-ink-900">de 9 a 17 hs</strong></li>
+            <li>✓ <strong className="text-ink-900">Pagás al recibir</strong>, en efectivo o transferencia</li>
+            <li>✓ Bidones <strong className="text-ink-900">retornables</strong>: cuando se vacían nos los devolvés</li>
+            <li>✓ Sin mínimos ni contratos; te avisamos por WhatsApp antes de cada visita</li>
           </ul>
           <div className="mt-8 hidden overflow-hidden rounded-[2rem] shadow-card lg:block">
             {/* eslint-disable-next-line @next/next/no-img-element */}

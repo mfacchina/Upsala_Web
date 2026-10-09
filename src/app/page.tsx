@@ -5,6 +5,7 @@ import { Natural } from "@/components/Natural";
 import { Products } from "@/components/Products";
 import { DispenserSection } from "@/components/DispenserSection";
 import { Steps } from "@/components/Steps";
+import { ServiceInfo } from "@/components/ServiceInfo";
 import { RegisterSection } from "@/components/RegisterSection";
 import { About } from "@/components/About";
 import { Resellers } from "@/components/Resellers";
@@ -25,6 +26,7 @@ export default function Page() {
         <Products />
         <DispenserSection />
         <Steps />
+        <ServiceInfo />
         <RegisterSection />
         <About />
         <Resellers />

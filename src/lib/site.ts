@@ -2,15 +2,19 @@
 
 export const SITE_URL = "https://upsala.com.ar/";
 
-/** Ventas y consultas: el numero de los botones de WhatsApp generales del sitio. */
-export const WHATSAPP_NUMBER = "5491134495488";
-/** Central / administracion. */
-export const WHATSAPP_CENTRAL = "5491170658458";
 /**
- * A donde va el boton "Confirmar por WhatsApp" despues de enviar un formulario: el chat
- * que cierra el pedido y coordina la entrega (administracion).
+ * WhatsApp de VENTAS (lo atiende un bot): botones generales del sitio y confirmacion de
+ * pedidos. El bot responde "pedido recibido", el dia de visita, el numero de gestion y el
+ * alias para transferencias.
  */
-export const WHATSAPP_ORDERS = WHATSAPP_CENTRAL;
+export const WHATSAPP_NUMBER = "5491134495488";
+/** WhatsApp de GESTION / administracion (lo informa el bot; en el sitio solo se muestra). */
+export const WHATSAPP_ADMIN = "5491170658458";
+/** A donde va "Confirmar pedido por WhatsApp" al enviar un formulario: ventas (el bot). */
+export const WHATSAPP_ORDERS = WHATSAPP_NUMBER;
+
+/** Horario de reparto. */
+export const DELIVERY_HOURS = "de 9 a 17 hs";
 
 export const WHATSAPP_MESSAGE = "Hola Upsala! Quiero agua mineral natural a domicilio.";
 export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
@@ -29,9 +33,9 @@ export function phoneDisplay(number: string) {
   return `${local.slice(0, 2)} ${local.slice(2, 6)}-${local.slice(6)}`;
 }
 
-/** Formatea pesos argentinos: 9700 -> "$ 9.700". */
+/** Formatea pesos argentinos: 9700 -> "$ 9.700", con espacio que no corta (el monto nunca se parte en dos renglones). */
 export function ars(n: number) {
-  return `$ ${n.toLocaleString("es-AR")}`;
+  return `$\u00a0${n.toLocaleString("es-AR")}`;
 }
 
 export const CONTACT = {
@@ -39,6 +43,7 @@ export const CONTACT = {
   businessEmail: "administracion@upsala.com.ar",
   // Siempre el mismo numero que abren los botones de WhatsApp (antes decia 7065-8458 y abria 3449-5488).
   phoneDisplay: phoneDisplay(WHATSAPP_NUMBER),
+  adminPhoneDisplay: phoneDisplay(WHATSAPP_ADMIN),
   instagram: "https://www.instagram.com/upsala.ba/",
   instagramHandle: "@upsala.ba",
   plant: "Villa Fournier, 9 de Julio (CP 6500), Provincia de Buenos Aires",

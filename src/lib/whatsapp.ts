@@ -19,7 +19,17 @@ export function orderWhatsAppUrl(message: string) {
 }
 
 export const VISIT_LABEL: Record<string, string> = {
-  MORNING: "Mañana",
-  AFTERNOON: "Tarde",
-  INDIFFERENT: "Indistinto",
+  MORNING: "Mañana (9 a 13 hs)",
+  AFTERNOON: "Tarde (13 a 17 hs)",
+  INDIFFERENT: "Indistinto (9 a 17 hs)",
 };
+
+/**
+ * Abre WhatsApp en la misma pestaña. Se usa despues de guardar el formulario: abrir una
+ * ventana nueva despues de un `await` la bloquean los navegadores (sobre todo en iPhone),
+ * navegar en la misma pestaña no. En el celular abre directo la app de WhatsApp.
+ */
+export function goToWhatsApp(url: string, delayMs = 700) {
+  // La demora deja salir los eventos del pixel antes de cambiar de pagina.
+  window.setTimeout(() => window.location.assign(url), delayMs);
+}

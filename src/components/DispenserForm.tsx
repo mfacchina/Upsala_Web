@@ -5,8 +5,8 @@ import { AnimatePresence, motion } from "motion/react";
 import { Field } from "./RegisterForm";
 import { WhatsAppIcon } from "./ui";
 import { DISPENSER_PAGE } from "@/lib/content";
-import { buildMessage, orderWhatsAppUrl } from "@/lib/whatsapp";
-import { ApiError, coverageFor, fetchFormOptions, getSource, submitRegistration, trackLead, type FormOptions } from "@/lib/api";
+import { buildMessage, goToWhatsApp, orderWhatsAppUrl } from "@/lib/whatsapp";
+import { ApiError, coverageFor, fetchFormOptions, getSource, submitRegistration, trackContact, trackLead, type FormOptions } from "@/lib/api";
 
 const OTHER = "__otro__";
 
@@ -58,6 +58,35 @@ export function DispenserForm({ initialKind = "home" }: { initialKind?: Kind }) 
     return DISPENSER_PAGE.business.plans[n <= 25 ? 0 : n <= 45 ? 1 : 2];
   }, [form.people]);
 
+  /** Link a WhatsApp de ventas con todos los datos del formulario. */
+  const waLink = (covered: boolean) => {
+    const business = kind === "business";
+    return orderWhatsAppUrl(buildMessage(
+      business
+        ? "Hola Upsala! Pedí en la web una propuesta de abono con dispenser frío/calor para mi empresa."
+        : "Hola Upsala! Me registré en la web y quiero confirmar el dispenser frío/calor para mi casa.",
+      [
+        ["Empresa", business && form.company.trim()],
+        ["Personas", business && form.people],
+        ["Plan sugerido", business && suggestedPlan && `${suggestedPlan.people} (${suggestedPlan.bidones} bidones de 20 L/mes, ${suggestedPlan.dispensers})`],
+        ["Nombre", `${form.firstName.trim()} ${form.lastName.trim()}`],
+        ["Teléfono", form.phone.trim()],
+        ["Email", form.email.trim()],
+        ["Dirección", [form.address.trim(), form.floor.trim()].filter(Boolean).join(", ")],
+        ["Barrio", neighborhood + (coverage?.day ? ` (reparto los ${coverage.day})` : "")],
+        ["Comentarios", form.message.trim()],
+      ],
+      covered ? undefined : "Vi que mi zona todavía no tiene reparto.",
+    ));
+  };
+
+  const finish = (covered: boolean) => {
+    trackLead("CLIENT", kind === "business" ? "dispenser_empresa" : "dispenser_casa");
+    trackContact(kind === "business" ? "confirmar_dispenser_empresa" : "confirmar_dispenser_casa");
+    setDone({ covered });
+    goToWhatsApp(waLink(covered));
+  };
+
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -99,10 +128,10 @@ export function DispenserForm({ initialKind = "home" }: { initialKind?: Kind }) 
         source: getSource(),
         website: form.website,
       });
-      trackLead("CLIENT", kind === "business" ? "dispenser_empresa" : "dispenser_casa");
-      setDone({ covered: res.covered });
+      finish(res.covered !== false);
     } catch (err) {
-      setError(err instanceof ApiError ? err.message : "Ocurrió un error. Probá de nuevo.");
+      if (err instanceof ApiError && err.isSystemFailure) finish(coverage?.covered !== false);
+      else setError(err instanceof ApiError ? err.message : "Ocurrió un error. Probá de nuevo.");
     } finally {
       setSending(false);
     }
@@ -111,23 +140,7 @@ export function DispenserForm({ initialKind = "home" }: { initialKind?: Kind }) 
   if (done) {
     const covered = done.covered !== false;
     const business = kind === "business";
-    const message = buildMessage(
-      business
-        ? "Hola Upsala! Pedí en la web una propuesta de abono con dispenser frío/calor para mi empresa."
-        : "Hola Upsala! Me registré en la web y quiero confirmar el dispenser frío/calor para mi casa.",
-      [
-        ["Empresa", business && form.company.trim()],
-        ["Personas", business && form.people],
-        ["Plan sugerido", business && suggestedPlan && `${suggestedPlan.people} (${suggestedPlan.bidones} bidones de 20 L/mes, ${suggestedPlan.dispensers})`],
-        ["Nombre", `${form.firstName.trim()} ${form.lastName.trim()}`],
-        ["Teléfono", form.phone.trim()],
-        ["Email", form.email.trim()],
-        ["Dirección", [form.address.trim(), form.floor.trim()].filter(Boolean).join(", ")],
-        ["Barrio", neighborhood + (coverage?.day ? ` (reparto los ${coverage.day})` : "")],
-        ["Comentarios", form.message.trim()],
-      ],
-      covered ? undefined : "Vi que mi zona todavía no tiene reparto.",
-    );
+    const message = waLink(covered);
     return (
       <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center gap-5 py-6 text-center">
         <span className={`flex h-16 w-16 items-center justify-center rounded-full ${covered ? "bg-wa/15 text-wa-dark" : "bg-sun/25 text-ink-900"}`}>
@@ -136,27 +149,22 @@ export function DispenserForm({ initialKind = "home" }: { initialKind?: Kind }) 
           </svg>
         </span>
         <div>
-          <h3 className="text-2xl font-bold text-ink-900">{covered ? "¡Listo! Ahora confirmá por WhatsApp" : "¡Pedido recibido!"}</h3>
+          <h3 className="text-2xl font-bold text-ink-900">Abriendo WhatsApp…</h3>
           <p className="mx-auto mt-2 max-w-md text-ink-900/65">
             Gracias, <strong className="text-ink-900">{form.firstName.trim()}</strong>.{" "}
-            {covered
-              ? business
-                ? "Tocá el botón: se abre WhatsApp con los datos de tu empresa ya escritos y te pasamos la propuesta con precio cerrado."
-                : "Tocá el botón: se abre WhatsApp con tus datos ya escritos y coordinamos la instalación del dispenser."
-              : "Todavía no llegamos a tu zona, pero guardamos tus datos y te avisamos."}
+            {business
+              ? "Los datos de tu empresa ya están escritos: tocá Enviar en WhatsApp y te pasamos la propuesta con precio cerrado."
+              : "Tu pedido ya está escrito: tocá Enviar en WhatsApp y coordinamos la instalación del dispenser."}
           </p>
         </div>
         <a
-          href={orderWhatsAppUrl(message)}
-          target="_blank"
-          rel="noopener"
+          href={message}
           data-wa-context={business ? "confirmar_dispenser_empresa" : "confirmar_dispenser_casa"}
           className={covered ? "btn-wa w-full max-w-sm !py-4 !text-lg" : "btn-wa"}
         >
           <WhatsAppIcon className={covered ? "h-6 w-6" : "h-5 w-5"} />
-          {covered ? (business ? "Pedir la propuesta por WhatsApp" : "Confirmar por WhatsApp") : "Consultar por WhatsApp"}
+          Si WhatsApp no se abrió, tocá acá
         </a>
-        {covered && <p className="max-w-sm text-xs text-ink-900/50">Tus datos ya nos llegaron. Si no tenés WhatsApp a mano, igual te contactamos nosotros.</p>}
       </motion.div>
     );
   }
@@ -264,10 +272,10 @@ export function DispenserForm({ initialKind = "home" }: { initialKind?: Kind }) 
         )}
       </AnimatePresence>
 
-      <button type="submit" disabled={sending} className="btn-primary w-full !py-4 !text-lg disabled:opacity-60">
-        {sending ? "Enviando..." : kind === "business" ? "Quiero la propuesta para mi empresa" : "Quiero el dispenser en casa"}
+      <button type="submit" disabled={sending} className="btn-wa w-full !py-4 !text-lg disabled:opacity-60">
+        {sending ? "Enviando..." : kind === "business" ? "Pedir la propuesta por WhatsApp" : "Confirmar dispenser por WhatsApp"}
       </button>
-      <p className="text-center text-xs text-ink-900/45">Tus datos son confidenciales y solo los usamos para coordinar la instalación.</p>
+      <p className="text-center text-xs text-ink-900/45">Se abre WhatsApp con todo escrito: solo tocás Enviar. Tus datos son confidenciales.</p>
     </form>
   );
 }

@@ -39,9 +39,10 @@ export function Footer() {
           <ul className="mt-4 space-y-2 text-sm">
             <li>
               <a href={WHATSAPP_URL} target="_blank" rel="noopener" className="transition hover:text-white">
-                WhatsApp {CONTACT.phoneDisplay}
+                Ventas (WhatsApp) {CONTACT.phoneDisplay}
               </a>
             </li>
+            <li>Gestión y administración {CONTACT.adminPhoneDisplay}</li>
             <li>
               <a href={`mailto:${CONTACT.email}`} className="transition hover:text-white">
                 {CONTACT.email}

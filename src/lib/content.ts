@@ -100,13 +100,13 @@ export const DISPENSER = {
   title: "Agua fría y caliente, siempre lista",
   text: "Te instalamos un dispenser frío/calor en comodato con tu bidón de 20 litros. Sin comprar equipo, sin service: si falla, lo cambiamos.",
   priceLabel: "Alquiler mensual",
-  price: "$ 15.000",
+  price: "$\u00a015.000",
   priceNote: "por mes, y se bonifica según los bidones de 20 L que consumís en el mes",
   /** Escala de bonificación por consumo mensual de bidones. */
   tiers: [
     { range: "6 o más bidones", bonus: "100%", pay: "No pagás alquiler", highlight: true },
-    { range: "4 o 5 bidones", bonus: "50%", pay: "Pagás $ 7.500", highlight: false },
-    { range: "2 o 3 bidones", bonus: "Sin bonificación", pay: "Pagás $ 15.000", highlight: false },
+    { range: "4 o 5 bidones", bonus: "50%", pay: "Pagás $\u00a07.500", highlight: false },
+    { range: "2 o 3 bidones", bonus: "Sin bonificación", pay: "Pagás $\u00a015.000", highlight: false },
   ],
   tiersNote: "Consumo mínimo: 2 bidones por mes.",
   bullets: ["Instalación y retiro sin cargo", "Cambio del equipo si tiene una falla", "Sin contrato: lo devolvés cuando quieras"],
@@ -123,7 +123,7 @@ export const DISPENSER_PAGE = {
   segments: { home: "Para tu casa", business: "Para tu empresa" },
   home: {
     title: "En casa: el alquiler se paga solo con tu consumo",
-    text: "El dispenser cuesta $ 15.000 por mes, pero se bonifica según los bidones de 20 L que consumís. Una familia que toma 6 bidones al mes no paga alquiler.",
+    text: "El dispenser cuesta $\u00a015.000 por mes, pero se bonifica según los bidones de 20 L que consumís. Una familia que toma 6 bidones al mes no paga alquiler.",
     points: ["Instalación y retiro sin cargo", "Cambio del equipo si tiene una falla", "Sin contrato: lo devolvés cuando quieras", "Consumo mínimo: 2 bidones de 20 L por mes"],
   },
   business: {
@@ -183,24 +183,70 @@ export const STEPS = {
   title: "Tres pasos y tenés agua en casa",
   items: [
     {
-      title: "Dejanos tus datos",
-      text: "Completás el formulario con tu dirección y tu barrio. Al elegirlo te decimos al instante si tenemos cobertura.",
+      title: "Armás tu pedido",
+      text: "Elegís tu barrio y ves al instante qué día pasamos. Elegís cuántos bidones querés y la calculadora te muestra el total con el 50% de bienvenida.",
     },
     {
-      title: "Te contactamos",
-      text: "Te escribimos por WhatsApp para coordinar el día y el horario de tu primera entrega.",
+      title: "Lo confirmás por WhatsApp",
+      text: "Al tocar Confirmar se abre WhatsApp con tu pedido ya escrito. Lo enviás y te respondemos al momento con el día de tu primera visita.",
     },
     {
       title: "Pasamos a dejarte agua",
-      text: "El reparto te deja los bidones llenos, se lleva los vacíos y te avisa por WhatsApp antes de cada visita.",
+      text: "El día de tu zona, entre las 9 y las 17 hs. Pagás al recibir, en efectivo o por transferencia, y a partir de la segunda visita nos llevamos los bidones vacíos.",
     },
   ],
 };
 
+/** Condiciones del servicio: lo que la persona tiene que saber antes de confirmar. */
+export const SERVICE = {
+  eyebrow: "Antes de pedir",
+  title: "Todo lo que tenés que saber",
+  text: "Así funciona el reparto, sin letra chica. Si te queda alguna duda, escribinos por WhatsApp antes de pedir.",
+  items: [
+    {
+      key: "dia",
+      title: "Un día fijo por zona",
+      text: "Cada barrio tiene su día de reparto. Lo ves al elegir tu barrio en el formulario, y abajo está la lista completa.",
+    },
+    {
+      key: "hora",
+      title: "Repartimos de 9 a 17 hs",
+      text: "Podés pedir preferencia de mañana (9 a 13) o de tarde (13 a 17). El día anterior te avisamos por WhatsApp para confirmar la visita.",
+    },
+    {
+      key: "pago",
+      title: "Pagás al recibir",
+      text: "El pago es en el momento de la entrega, en efectivo o por transferencia. Te pasamos el alias por WhatsApp.",
+    },
+    {
+      key: "envase",
+      title: "Los bidones son retornables",
+      text: "El envase es nuestro: cuando se vacía, nos lo devolvés en la visita siguiente y te dejamos uno lleno. Cuidalo y no lo uses para otra cosa.",
+    },
+    {
+      key: "precio",
+      title: "Precio claro",
+      text: "Bidón de 20 L $\u00a09.700 y de 12 L $\u00a07.250, precio final. En tu primer pedido, un bidón va al 50%.",
+    },
+    {
+      key: "minimo",
+      title: "Sin mínimos ni contrato",
+      text: "Pedís los bidones que necesitás. Si un día no querés agua, avisás y no pasamos. Si querés darte de baja, nos devolvés los envases y listo.",
+    },
+  ],
+  daysTitle: "Qué día pasamos por tu barrio",
+  daysNote: "Siempre entre las 9 y las 17 hs. Si tu barrio no está en la lista, dejanos tus datos igual y te avisamos cuando lleguemos.",
+};
+
 export const REGISTER = {
   eyebrow: "Quiero ser cliente",
-  title: "Pedí tu primera entrega",
-  text: "Dos minutos. Elegí tu barrio para saber si tenemos cobertura antes de completar el resto.",
+  title: "Armá tu primer pedido",
+  text: "Dos minutos. Elegí tu barrio para ver qué día pasamos, elegí tus bidones y confirmás por WhatsApp con todo ya escrito.",
+  submit: "Confirmar pedido por WhatsApp",
+  submitNotCovered: "Enviar mis datos por WhatsApp",
+  redirectTitle: "Abriendo WhatsApp…",
+  redirectText: "Tu pedido ya está escrito: solo tocá Enviar en WhatsApp y te respondemos al momento con el día de tu primera visita.",
+  redirectFallback: "Si WhatsApp no se abrió, tocá acá",
   coveredMsg: "Tenemos cobertura en tu barrio.",
   notCoveredMsg: "Todavía no llegamos a tu barrio. Dejanos tus datos igual y te avisamos cuando lleguemos.",
   unknownMsg: "No pudimos verificar la cobertura automáticamente. Dejanos tus datos y te confirmamos por WhatsApp.",
@@ -245,15 +291,27 @@ export const FAQ = [
   },
   {
     q: "¿Cómo funciona el dispenser frío/calor?",
-    a: "Te lo instalamos en comodato por $ 15.000 al mes, que se bonifican según tu consumo: con 6 o más bidones de 20 L al mes no pagás alquiler, con 4 o 5 pagás la mitad y con 2 o 3 pagás el alquiler completo. El consumo mínimo es de 2 bidones por mes. Si el equipo tiene una falla, lo cambiamos sin cargo.",
+    a: "Te lo instalamos en comodato por $\u00a015.000 al mes, que se bonifican según tu consumo: con 6 o más bidones de 20 L al mes no pagás alquiler, con 4 o 5 pagás la mitad y con 2 o 3 pagás el alquiler completo. El consumo mínimo es de 2 bidones por mes. Si el equipo tiene una falla, lo cambiamos sin cargo.",
   },
   {
-    q: "¿Cómo pago?",
-    a: "En efectivo al repartidor o por transferencia. Si necesitás factura, la emitimos con tu CUIT.",
+    q: "¿Cómo y cuándo pago?",
+    a: "En el momento de la entrega, en efectivo al repartidor o por transferencia (te pasamos el alias por WhatsApp). Si necesitás factura, la emitimos con tu CUIT.",
+  },
+  {
+    q: "¿Qué día y en qué horario pasan?",
+    a: "Cada barrio tiene un día fijo de reparto, que ves al elegir tu barrio en el formulario. Repartimos de 9 a 17 hs; podés pedir preferencia de mañana o de tarde.",
+  },
+  {
+    q: "¿Los bidones son míos?",
+    a: "No, son retornables: el envase es de Upsala. Cuando se vacía nos lo devolvés en la visita siguiente y te dejamos uno lleno. Si dejás el servicio, nos devolvés los envases.",
+  },
+  {
+    q: "¿Cuánto sale el primer pedido?",
+    a: "El bidón de 20 L sale $\u00a09.700 y el de 12 L $\u00a07.250. En tu primer pedido, un bidón va al 50%: el formulario te calcula el total antes de confirmar.",
   },
   {
     q: "¿Tengo que estar en casa?",
-    a: "Para el recambio sí, porque retiramos el bidón vacío. Por eso te avisamos por WhatsApp el día anterior y podés confirmar o reprogramar la visita.",
+    a: "Sí, o alguien que reciba, porque pagás al recibir y retiramos los envases vacíos. El día anterior te avisamos por WhatsApp y podés confirmar o reprogramar la visita.",
   },
 ];
 
