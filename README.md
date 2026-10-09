@@ -72,9 +72,9 @@ El dominio y el mail están en DonWeb (panel Ferozo, cuenta `c2700043`, DNS ns3/
 
 ### Publicación automática (GitHub → rama deploy → Git de Ferozo)
 
-Cada push a  corre : compila el sitio sin basePath y fuerza el contenido de  (con ) en la rama ****. Esa rama tiene solo la web armada; no se edita a mano.
+Cada push a `main` corre `.github/workflows/deploy.yml`: compila el sitio sin basePath y fuerza el contenido de `out/` (con `.htaccess`) en la rama **`deploy`**. Esa rama tiene solo la web armada; no se edita a mano.
 
-El hosting baja esa rama con el Git de Ferozo (Mi Sitio Web > GIT), usando la clave SSH de la cuenta c2700043, cargada en GitHub como deploy key de **solo lectura** ("DonWeb Ferozo c2700043"). Repo: , rama , destino . El  no sirve la carpeta .
+El hosting baja esa rama con el Git de Ferozo (Mi Sitio Web > GIT), usando la clave SSH de la cuenta c2700043, cargada en GitHub como deploy key de **solo lectura** ("DonWeb Ferozo c2700043"). Repo: `git@github.com:mfacchina/Upsala_Web.git`, rama `deploy`, destino `public_html`. El `.htaccess` no sirve la carpeta `.git`.
 
 El zip manual (pasos de arriba) sigue sirviendo como plan B.
 
