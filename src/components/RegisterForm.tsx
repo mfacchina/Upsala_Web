@@ -187,8 +187,9 @@ export function RegisterForm() {
       website: form.website,
     };
     setSending(true);
+    let appCovered: boolean | null = null;
     try {
-      await submitRegistration(payload);
+      appCovered = (await submitRegistration(payload)).covered;
     } catch (err) {
       // Error en los datos (o demasiados intentos): se corrige y se reintenta.
       // Falla del sistema: seguimos igual a WhatsApp, el mensaje lleva todos los datos.
@@ -199,7 +200,9 @@ export function RegisterForm() {
       }
     }
     setSending(false);
-    trackLead("CLIENT", "cliente");
+    // Lead solo si hay reparto en el barrio: si no, Meta aprende a buscar gente donde no llegamos.
+    // Manda lo que respondio la app; si la app no respondio, lo que se vio al elegir el barrio.
+    if (appCovered ?? coverage === "covered") trackLead("CLIENT", "cliente");
     trackContact(covered ? "confirmar_pedido" : "sin_cobertura");
     const url = buildWhatsApp();
     setRedirect(url);

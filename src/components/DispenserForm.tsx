@@ -80,8 +80,9 @@ export function DispenserForm({ initialKind = "home" }: { initialKind?: Kind }) 
     ));
   };
 
-  const finish = (covered: boolean) => {
-    trackLead("CLIENT", kind === "business" ? "dispenser_empresa" : "dispenser_casa");
+  /** `hasDelivery`: reparto confirmado en esa zona. El Lead del pixel se manda solo en ese caso. */
+  const finish = (covered: boolean, hasDelivery: boolean) => {
+    if (hasDelivery) trackLead("CLIENT", kind === "business" ? "dispenser_empresa" : "dispenser_casa");
     trackContact(kind === "business" ? "confirmar_dispenser_empresa" : "confirmar_dispenser_casa");
     setDone({ covered });
     goToWhatsApp(waLink(covered));
@@ -128,9 +129,9 @@ export function DispenserForm({ initialKind = "home" }: { initialKind?: Kind }) 
         source: getSource(),
         website: form.website,
       });
-      finish(res.covered !== false);
+      finish(res.covered !== false, res.covered ?? coverage?.covered === true);
     } catch (err) {
-      if (err instanceof ApiError && err.isSystemFailure) finish(coverage?.covered !== false);
+      if (err instanceof ApiError && err.isSystemFailure) finish(coverage?.covered !== false, coverage?.covered === true);
       else setError(err instanceof ApiError ? err.message : "Ocurrió un error. Probá de nuevo.");
     } finally {
       setSending(false);
