@@ -1,0 +1,16 @@
+# public_html/.htaccess (raiz) - la web la publica Git en public_html/sitio/
+# Este archivo hace que https://upsala.com.ar/ muestre lo que hay en /sitio/ sin cambiar la direccion.
+
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Lo que usa el hosting (certificados SSL) se deja tal cual.
+  RewriteRule ^\.well-known/ - [L]
+
+  # Todo lo demas se sirve desde la carpeta que actualiza Git.
+  RewriteCond %{REQUEST_URI} !^/sitio/
+  RewriteRule ^(.*)$ /sitio/$1 [L]
+</IfModule>
