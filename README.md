@@ -70,6 +70,14 @@ El dominio y el mail están en DonWeb (panel Ferozo, cuenta `c2700043`, DNS ns3/
 4. Cuando el dominio ya muestre la web nueva: Ferozo > Dominios > Certificados SSL, activar el certificado gratuito para `upsala.com.ar` y `www`.
 5. En Canva, desconectar el dominio del sitio viejo.
 
+### Publicación automática (GitHub → rama deploy → Git de Ferozo)
+
+Cada push a  corre : compila el sitio sin basePath y fuerza el contenido de  (con ) en la rama ****. Esa rama tiene solo la web armada; no se edita a mano.
+
+El hosting baja esa rama con el Git de Ferozo (Mi Sitio Web > GIT), usando la clave SSH de la cuenta c2700043, cargada en GitHub como deploy key de **solo lectura** ("DonWeb Ferozo c2700043"). Repo: , rama , destino . El  no sirve la carpeta .
+
+El zip manual (pasos de arriba) sigue sirviendo como plan B.
+
 ### Pixel de Meta
 
 El pixel es **Upsala CAPI (2272461290182516)**, cargado por defecto en `src/lib/site.ts` (se puede pisar con `NEXT_PUBLIC_META_PIXEL_ID`). Ojo al probarlo: el script de Meta no manda eventos desde navegadores automatizados (headless/webdriver), así que las pruebas automáticas dan cero aunque funcione; se verifica a mano con "Probar eventos". Eventos: `PageView` en cada página, `Lead` cuando un formulario se guarda en la app (`content_name`: cliente, dispenser_casa, dispenser_empresa, revendedor) y `Contact` en cada click a WhatsApp (`content_name`: confirmar_pedido, confirmar_dispenser_casa, confirmar_dispenser_empresa, revendedor, whatsapp). Para verificar el dominio en Meta Business: `NEXT_PUBLIC_META_DOMAIN_VERIFICATION=<código>` o un registro TXT en la Zona DNS. En la vista previa `/web/` el pixel no carga porque la app tiene una política de seguridad que no permite scripts de Facebook; se prueba en upsala.com.ar.
