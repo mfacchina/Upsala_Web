@@ -47,6 +47,14 @@
   --animate-shimmer: shimmer 2.8s linear infinite;
   --animate-bubble-small: bubbleSmall 2.8s ease-in infinite;
   --animate-dash: dash 1.2s linear infinite;
+  --animate-wa-pulse: waPulse 2s ease-out infinite;
+
+  /* Sombra que late alrededor del boton de WhatsApp: no cambia el tamano ni el layout. */
+  @keyframes waPulse {
+    0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.55), 0 12px 30px -10px rgba(37, 211, 102, 0.6); }
+    70% { box-shadow: 0 0 0 14px rgba(37, 211, 102, 0), 0 12px 30px -10px rgba(37, 211, 102, 0.6); }
+    100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0), 0 12px 30px -10px rgba(37, 211, 102, 0.6); }
+  }
 
   @keyframes dash {
     from { stroke-dashoffset: 28; }

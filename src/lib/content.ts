@@ -205,6 +205,9 @@ export const REGISTER = {
   notCoveredMsg: "Todavía no llegamos a tu barrio. Dejanos tus datos igual y te avisamos cuando lleguemos.",
   unknownMsg: "No pudimos verificar la cobertura automáticamente. Dejanos tus datos y te confirmamos por WhatsApp.",
   successTitle: "¡Registro recibido!",
+  confirmTitle: "¡Listo! Ahora confirmá por WhatsApp",
+  confirmText: "Tocá el botón: se abre WhatsApp con tus datos ya escritos, lo enviás y coordinamos la entrega de tu primer bidón.",
+  confirmHint: "Tus datos ya nos llegaron. Si no tenés WhatsApp a mano, igual te contactamos nosotros.",
   successCovered: "Te escribimos por WhatsApp a la brevedad para coordinar tu primera entrega y aplicar el 50% en tu primer bidón.",
   successNotCovered:
     "Todavía no tenemos reparto en tu barrio, pero guardamos tus datos: en cuanto lleguemos te avisamos.",

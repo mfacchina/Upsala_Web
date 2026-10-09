@@ -3,8 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import { WhatsAppIcon } from "./ui";
-import { REGISTER } from "@/lib/content";
-import { WHATSAPP_URL } from "@/lib/site";
+import { PROMO, REGISTER } from "@/lib/content";
+import { VISIT_LABEL, buildMessage, orderWhatsAppUrl } from "@/lib/whatsapp";
 import { ApiError, coverageFor, fetchFormOptions, getSource, submitRegistration, trackLead, type FormOptions, type RegistrationPayload } from "@/lib/api";
 
 const OTHER = "__otro__";
@@ -112,6 +112,28 @@ export function RegisterForm({ compact = false }: { compact?: boolean }) {
 
   if (done) {
     const covered = done.covered !== false;
+    const address = [
+      form.address.trim(),
+      form.propertyType === "APARTMENT" && [form.floor.trim() && `piso ${form.floor.trim()}`, form.apartment.trim() && `depto ${form.apartment.trim()}`].filter(Boolean).join(" "),
+    ]
+      .filter(Boolean)
+      .join(", ");
+    const message = buildMessage(
+      covered
+        ? "Hola Upsala! Me registré en la web y quiero confirmar mi primer pedido."
+        : "Hola Upsala! Me registré en la web. Mi barrio todavía no tiene reparto, ¿me avisan cuando lleguen?",
+      [
+        ["Nombre", `${form.firstName.trim()} ${form.lastName.trim()}`],
+        ["Teléfono", form.phone.trim()],
+        ["Email", form.email.trim()],
+        ["Dirección", address],
+        ["Barrio", neighborhood + (covered && done.day ? ` (reparto los ${done.day})` : "")],
+        ["Pedido", form.product || "A definir"],
+        ["Horario preferido", VISIT_LABEL[form.visit]],
+        ["Comentarios", form.message.trim()],
+      ],
+      covered ? `Promo de bienvenida: ${PROMO.title.toLowerCase()}.` : undefined,
+    );
     return (
       <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center gap-6 py-6 text-center">
         <span className={`flex h-20 w-20 items-center justify-center rounded-full ${covered ? "bg-wa/15 text-wa-dark" : "bg-sun/25 text-ink-900"}`}>
@@ -120,9 +142,9 @@ export function RegisterForm({ compact = false }: { compact?: boolean }) {
           </svg>
         </span>
         <div>
-          <h3 className="text-2xl font-bold text-ink-900">{REGISTER.successTitle}</h3>
+          <h3 className="text-2xl font-bold text-ink-900">{covered ? REGISTER.confirmTitle : REGISTER.successTitle}</h3>
           <p className="mx-auto mt-2 max-w-md text-ink-900/65">
-            Gracias, <strong className="text-ink-900">{form.firstName.trim()}</strong>. {covered ? REGISTER.successCovered : REGISTER.successNotCovered}
+            Gracias, <strong className="text-ink-900">{form.firstName.trim()}</strong>. {covered ? REGISTER.confirmText : REGISTER.successNotCovered}
             {covered && done.day && (
               <>
                 {" "}
@@ -131,10 +153,19 @@ export function RegisterForm({ compact = false }: { compact?: boolean }) {
             )}
           </p>
         </div>
-        <a href={WHATSAPP_URL} target="_blank" rel="noopener" className="btn-wa">
-          <WhatsAppIcon />
-          Escribir por WhatsApp
+        {/* La sombra que late (animate-wa-pulse) llama la atencion sin agrandar el boton:
+            un halo que crece se sale de la pantalla en el celular y descuadra los toques. */}
+        <a
+          href={orderWhatsAppUrl(message)}
+          target="_blank"
+          rel="noopener"
+          data-wa-context={covered ? "confirmar_pedido" : "sin_cobertura"}
+          className={covered ? "btn-wa w-full max-w-sm !py-4 !text-lg animate-wa-pulse" : "btn-wa"}
+        >
+          <WhatsAppIcon className={covered ? "h-6 w-6" : "h-5 w-5"} />
+          {covered ? "Confirmar pedido por WhatsApp" : "Consultar por WhatsApp"}
         </a>
+        {covered && <p className="max-w-sm text-xs text-ink-900/50">{REGISTER.confirmHint}</p>}
       </motion.div>
     );
   }

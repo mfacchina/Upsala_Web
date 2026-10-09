@@ -4,4 +4,4 @@ node_modules/
 out/
 *.tsbuildinfo
 next-env.d.ts
-upsala-web-cpanel.zip
+upsala-web-*.zip

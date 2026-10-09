@@ -5,7 +5,8 @@ import { AnimatePresence, motion } from "motion/react";
 import { Field } from "./RegisterForm";
 import { WhatsAppIcon } from "./ui";
 import { RESELLERS } from "@/lib/content";
-import { WHATSAPP_RESELLER_URL } from "@/lib/site";
+import { waUrl } from "@/lib/site";
+import { buildMessage } from "@/lib/whatsapp";
 import { ApiError, getSource, submitRegistration, trackLead } from "@/lib/api";
 
 const EMPTY = { firstName: "", lastName: "", phone: "", email: "", zone: "", message: "", website: "" };
@@ -57,7 +58,21 @@ export function ResellerForm() {
           <h3 className="text-xl font-bold text-ink-900">{RESELLERS.successTitle}</h3>
           <p className="mt-2 text-sm text-ink-900/65">{RESELLERS.successText}</p>
         </div>
-        <a href={WHATSAPP_RESELLER_URL} target="_blank" rel="noopener" className="btn-wa !px-5 !py-2.5 !text-sm">
+        <a
+          href={waUrl(
+            buildMessage("Hola Upsala! Dejé mis datos en la web para sumarme como revendedor.", [
+              ["Nombre", `${form.firstName.trim()} ${form.lastName.trim()}`],
+              ["Teléfono", form.phone.trim()],
+              ["Email", form.email.trim()],
+              ["Zona", form.zone.trim()],
+              ["Sobre mí", form.message.trim()],
+            ]),
+          )}
+          target="_blank"
+          rel="noopener"
+          data-wa-context="revendedor"
+          className="btn-wa !px-5 !py-2.5 !text-sm"
+        >
           <WhatsAppIcon className="h-4 w-4" />
           Adelantar la charla por WhatsApp
         </a>

@@ -55,20 +55,28 @@ npm run preview      # lo sirve en http://localhost:3500/ tal como va a quedar
 
 Subir **el contenido** de `out/` a la raíz del hosting del dominio (`out/index.html` tiene que quedar en `https://upsala.com.ar/index.html`). `public/.htaccess` sale dentro de `out/` y configura Apache (404, tipos de video, caché).
 
-### Publicar en upsala.com.ar (cPanel de Hostmar)
+### Publicar en upsala.com.ar (DonWeb, panel Ferozo)
 
-El dominio usa los DNS de Hostmar (ns3/ns4.hostmar.com) y el mail vive ahí (`mail.upsala.com.ar`, 200.58.111.95). La web apuntaba a Canva (103.169.142.0).
+El dominio y el mail están en DonWeb (panel Ferozo, cuenta `c2700043`, DNS ns3/ns4.hostmar.com). El hosting es Apache en **200.58.111.95** (`c2700043.ferozo.com`, `ftp.upsala.com.ar` y `mail.upsala.com.ar` resuelven ahí). La web apuntaba a Canva (103.169.142.0).
 
-1. Buildear para la raíz y zipear el **contenido** de `out/`, incluido `.htaccess`:
+1. Buildear para la raíz (con el pixel si ya está el ID) y zipear el **contenido** de `out/`, incluido `.htaccess`:
    ```bash
    MSYS_NO_PATHCONV=1 NEXT_PUBLIC_BASE_PATH= npm run build
-   cd out && tar.exe -a -c -f ../upsala-web-cpanel.zip .htaccess *
+   cd out && tar.exe -a -c -f ../upsala-web-donweb.zip .htaccess *
    ```
    `tar.exe` es el de Windows (`C:\Windows\System32\tar.exe`): arma el zip con barras `/`, que es lo que necesita el servidor Linux.
-2. cPanel > Administrador de archivos > `public_html`: borrar lo que haya del sitio viejo, subir el zip y "Extraer". `index.html` tiene que quedar directamente en `public_html`.
-3. cPanel > Editor de zona > upsala.com.ar: cambiar los registros **A** de `upsala.com.ar` y `www.upsala.com.ar` de 103.169.142.0 a 200.58.111.95. **No tocar MX, `mail`, `mx1` ni el TXT de SPF.** El TXT `canva-domain-verify` se puede borrar.
-4. Cuando el dominio ya resuelva al hosting: cPanel > Estado de SSL/TLS > "Ejecutar AutoSSL"; con el candado funcionando, Dominios > "Forzar redireccionamiento HTTPS".
+2. Ferozo > Mi Sitio Web > Administrador de archivos > `public_html`: borrar lo que haya del sitio viejo, subir el zip y descomprimirlo ahí. `index.html` tiene que quedar directamente en `public_html`. (También se puede subir por FTP con FileZilla a `ftp.upsala.com.ar`.)
+3. Ferozo > Dominios > upsala.com.ar > Zona DNS: cambiar los registros **A** de `upsala.com.ar` y `www.upsala.com.ar` de 103.169.142.0 a 200.58.111.95. **No tocar MX, `mail`, `mx1` ni el TXT de SPF.** El TXT `canva-domain-verify` se puede borrar.
+4. Cuando el dominio ya muestre la web nueva: Ferozo > Dominios > Certificados SSL, activar el certificado gratuito para `upsala.com.ar` y `www`.
 5. En Canva, desconectar el dominio del sitio viejo.
+
+### Pixel de Meta
+
+Con el ID del pixel (Administrador de eventos de Meta), buildear con `NEXT_PUBLIC_META_PIXEL_ID=<id>`. Eventos: `PageView` en cada página, `Lead` cuando un formulario se guarda en la app (`content_name`: cliente, dispenser_casa, dispenser_empresa, revendedor) y `Contact` en cada click a WhatsApp (`content_name`: confirmar_pedido, confirmar_dispenser_casa, confirmar_dispenser_empresa, revendedor, whatsapp). Para verificar el dominio en Meta Business: `NEXT_PUBLIC_META_DOMAIN_VERIFICATION=<código>` o un registro TXT en la Zona DNS. En la vista previa `/web/` el pixel no carga porque la app tiene una política de seguridad que no permite scripts de Facebook; se prueba en upsala.com.ar.
+
+### Confirmar por WhatsApp
+
+Después de enviar cualquier formulario, la pantalla de éxito muestra un botón que abre el chat de pedidos (`WHATSAPP_ORDERS` en `src/lib/site.ts`, hoy administración 11 7065-8458) con todos los datos ya escritos. El registro se guarda en la app **antes**, así que si la persona no toca el botón igual aparece en Clientes > Nuevos Web.
 
 Los formularios siguen llegando a la app: el navegador llama a `https://upsala.aquacontrol.aginet.com.ar/api/public/registro`, que ya acepta `https://upsala.com.ar` y `https://www.upsala.com.ar`. Para actualizar el sitio, repetir los pasos 1 y 2.
 

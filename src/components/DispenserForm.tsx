@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Field } from "./RegisterForm";
 import { WhatsAppIcon } from "./ui";
 import { DISPENSER_PAGE } from "@/lib/content";
-import { WHATSAPP_URL, waUrl } from "@/lib/site";
+import { buildMessage, orderWhatsAppUrl } from "@/lib/whatsapp";
 import { ApiError, coverageFor, fetchFormOptions, getSource, submitRegistration, trackLead, type FormOptions } from "@/lib/api";
 
 const OTHER = "__otro__";
@@ -99,7 +99,7 @@ export function DispenserForm({ initialKind = "home" }: { initialKind?: Kind }) 
         source: getSource(),
         website: form.website,
       });
-      trackLead("CLIENT");
+      trackLead("CLIENT", kind === "business" ? "dispenser_empresa" : "dispenser_casa");
       setDone({ covered: res.covered });
     } catch (err) {
       setError(err instanceof ApiError ? err.message : "Ocurrió un error. Probá de nuevo.");
@@ -110,6 +110,24 @@ export function DispenserForm({ initialKind = "home" }: { initialKind?: Kind }) 
 
   if (done) {
     const covered = done.covered !== false;
+    const business = kind === "business";
+    const message = buildMessage(
+      business
+        ? "Hola Upsala! Pedí en la web una propuesta de abono con dispenser frío/calor para mi empresa."
+        : "Hola Upsala! Me registré en la web y quiero confirmar el dispenser frío/calor para mi casa.",
+      [
+        ["Empresa", business && form.company.trim()],
+        ["Personas", business && form.people],
+        ["Plan sugerido", business && suggestedPlan && `${suggestedPlan.people} (${suggestedPlan.bidones} bidones de 20 L/mes, ${suggestedPlan.dispensers})`],
+        ["Nombre", `${form.firstName.trim()} ${form.lastName.trim()}`],
+        ["Teléfono", form.phone.trim()],
+        ["Email", form.email.trim()],
+        ["Dirección", [form.address.trim(), form.floor.trim()].filter(Boolean).join(", ")],
+        ["Barrio", neighborhood + (coverage?.day ? ` (reparto los ${coverage.day})` : "")],
+        ["Comentarios", form.message.trim()],
+      ],
+      covered ? undefined : "Vi que mi zona todavía no tiene reparto.",
+    );
     return (
       <motion.div initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }} className="flex flex-col items-center gap-5 py-6 text-center">
         <span className={`flex h-16 w-16 items-center justify-center rounded-full ${covered ? "bg-wa/15 text-wa-dark" : "bg-sun/25 text-ink-900"}`}>
@@ -118,16 +136,27 @@ export function DispenserForm({ initialKind = "home" }: { initialKind?: Kind }) 
           </svg>
         </span>
         <div>
-          <h3 className="text-2xl font-bold text-ink-900">¡Pedido recibido!</h3>
+          <h3 className="text-2xl font-bold text-ink-900">{covered ? "¡Listo! Ahora confirmá por WhatsApp" : "¡Pedido recibido!"}</h3>
           <p className="mx-auto mt-2 max-w-md text-ink-900/65">
             Gracias, <strong className="text-ink-900">{form.firstName.trim()}</strong>.{" "}
-            {covered ? (kind === "business" ? DISPENSER_PAGE.form.successBusiness : DISPENSER_PAGE.form.success) : "Todavía no llegamos a tu zona, pero guardamos tus datos y te avisamos."}
+            {covered
+              ? business
+                ? "Tocá el botón: se abre WhatsApp con los datos de tu empresa ya escritos y te pasamos la propuesta con precio cerrado."
+                : "Tocá el botón: se abre WhatsApp con tus datos ya escritos y coordinamos la instalación del dispenser."
+              : "Todavía no llegamos a tu zona, pero guardamos tus datos y te avisamos."}
           </p>
         </div>
-        <a href={kind === "business" ? waUrl(`Hola Upsala! Pedí una propuesta de dispenser para ${form.company.trim()}.`) : WHATSAPP_URL} target="_blank" rel="noopener" className="btn-wa">
-          <WhatsAppIcon />
-          Seguir por WhatsApp
+        <a
+          href={orderWhatsAppUrl(message)}
+          target="_blank"
+          rel="noopener"
+          data-wa-context={business ? "confirmar_dispenser_empresa" : "confirmar_dispenser_casa"}
+          className={covered ? "btn-wa w-full max-w-sm !py-4 !text-lg" : "btn-wa"}
+        >
+          <WhatsAppIcon className={covered ? "h-6 w-6" : "h-5 w-5"} />
+          {covered ? (business ? "Pedir la propuesta por WhatsApp" : "Confirmar por WhatsApp") : "Consultar por WhatsApp"}
         </a>
+        {covered && <p className="max-w-sm text-xs text-ink-900/50">Tus datos ya nos llegaron. Si no tenés WhatsApp a mano, igual te contactamos nosotros.</p>}
       </motion.div>
     );
   }

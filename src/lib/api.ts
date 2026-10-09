@@ -150,12 +150,25 @@ export function getSource(): string | undefined {
   }
 }
 
-/** Evento de conversion para el pixel de Meta, si esta cargado. */
-export function trackLead(kind: RegistrationPayload["kind"]) {
-  const w = window as unknown as { fbq?: (...args: unknown[]) => void };
+function fbq(...args: unknown[]) {
+  const w = window as unknown as { fbq?: (...a: unknown[]) => void };
   try {
-    w.fbq?.("track", "Lead", { content_name: kind === "RESELLER" ? "revendedor" : "cliente" });
+    w.fbq?.(...args);
   } catch {
     /* sin pixel */
   }
+}
+
+/**
+ * Evento Lead del pixel de Meta: un formulario se guardo en la app.
+ * `content_name` distingue de que formulario vino (cliente, dispenser_casa, dispenser_empresa, revendedor),
+ * para armar audiencias y conversiones personalizadas en Meta.
+ */
+export function trackLead(kind: RegistrationPayload["kind"], contentName?: string) {
+  fbq("track", "Lead", { content_name: contentName ?? (kind === "RESELLER" ? "revendedor" : "cliente") });
+}
+
+/** Evento Contact del pixel: click a un link de WhatsApp. */
+export function trackContact(context: string) {
+  fbq("track", "Contact", { content_name: context });
 }
