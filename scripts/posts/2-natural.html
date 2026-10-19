@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="base.css" />
+<style>
+  .card { background: radial-gradient(ellipse at 85% 10%, #e2f0fc 0%, #f5fafe 55%, #ffffff 100%); }
+  .logo { position: absolute; left: 64px; top: 56px; height: 80px; }
+  .glass { position: absolute; right: -40px; top: 40px; width: 430px; height: 430px; border-radius: 50%; overflow: hidden; border: 14px solid #fff; box-shadow: 0 30px 60px -25px rgba(12,38,64,0.45); }
+  .glass img { width: 100%; height: 100%; object-fit: cover; }
+  .eyebrow { position: absolute; left: 64px; top: 196px; font-size: 24px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #2470ba; }
+  h1 { position: absolute; left: 64px; top: 240px; width: 620px; font-size: 64px; line-height: 1.02; font-weight: 800; }
+  .lead { position: absolute; left: 64px; top: 470px; width: 900px; font-size: 30px; line-height: 1.35; color: rgba(12,38,64,0.75); }
+  .list { position: absolute; left: 64px; right: 64px; top: 600px; display: grid; gap: 16px; }
+  .item { display: flex; align-items: center; gap: 22px; background: #fff; border: 1px solid rgba(12,38,64,0.08); border-radius: 26px; padding: 20px 28px; box-shadow: 0 12px 30px -20px rgba(12,38,64,0.4); }
+  .item .ic { flex: none; width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 800; background: #eef2f6; color: #8796a6; }
+  .item b { font-family: Outfit, sans-serif; font-size: 36px; font-weight: 700; }
+  .item.yes { background: linear-gradient(135deg, #2470ba, #0c2640); color: #fff; border: none; }
+  .item.yes .ic { background: rgba(122,220,240,0.25); color: #7adcf0; }
+  .item.yes div span { display: block; font-size: 24px; color: rgba(255,255,255,0.8); margin-top: 4px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <img class="logo" src="../../public/img/logo-azul.png" alt="Upsala" />
+  <div class="glass"><img src="../../public/img/foto-vaso-m.webp" alt="" /></div>
+  <div class="eyebrow">¿Qué agua tomás?</div>
+  <h1>Mineral natural no es lo mismo que agua de mesa</h1>
+  <p class="lead">La mayoría de los bidones que llegan a las casas de Buenos Aires son agua de mesa: de red o de pozo, purificada y tratada.</p>
+  <div class="list">
+    <div class="item"><span class="ic">✕</span><b>No es mineralizada</b></div>
+    <div class="item"><span class="ic">✕</span><b>No es agua de mesa</b></div>
+    <div class="item"><span class="ic">✕</span><b>No es purificada ni tratada</b></div>
+    <div class="item yes"><span class="ic"><svg viewBox="0 0 20 20" width="28" height="28" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10.5l4 4 8-9"/></svg></span><div><b>Es agua mineral natural</b><span>Envasada en origen, en 9 de Julio. Tal como sale de la tierra.</span></div></div>
+  </div>
+  <div class="cta">
+    <div class="web"><small>Primer bidón 50% OFF en</small>upsala.com.ar</div>
+    <div class="wa"><svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.3zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>11 3449-5488</div>
+  </div>
+</div>
+</body>
+</html>

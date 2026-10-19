@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8" />
+<link rel="stylesheet" href="base.css" />
+<style>
+  .card { background: radial-gradient(ellipse at 20% 10%, #2470ba 0%, #163b62 45%, #0c2640 100%); color: #fff; }
+  .photo { position: absolute; left: 0; top: 0; width: 470px; height: 1310px; object-fit: cover; object-position: 30% 50%;
+    -webkit-mask-image: linear-gradient(to right, black 70%, transparent 100%); mask-image: linear-gradient(to right, black 70%, transparent 100%); }
+  .logo { position: absolute; right: 64px; top: 56px; height: 80px; }
+  .right { position: absolute; left: 470px; right: 56px; top: 190px; }
+  .eyebrow { font-size: 22px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: #7adcf0; }
+  h1 { font-size: 66px; line-height: 1.03; font-weight: 800; margin-top: 14px; }
+  .price { margin-top: 30px; font-size: 24px; color: rgba(255,255,255,0.75); }
+  .price b { display: block; font-family: Outfit, sans-serif; font-size: 66px; color: #fff; }
+  .tiers { margin-top: 26px; display: grid; gap: 14px; }
+  .tier { display: flex; align-items: center; justify-content: space-between; border-radius: 22px; padding: 18px 24px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); font-size: 26px; }
+  .tier b { font-family: Outfit, sans-serif; font-size: 34px; }
+  .tier.best { background: linear-gradient(135deg, #3cc9e8, #2f87d6); color: #0c2640; border: none; }
+  .note { margin-top: 22px; font-size: 22px; line-height: 1.4; color: rgba(255,255,255,0.75); }
+  .badge { position: absolute; left: 40px; top: 40px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <img class="photo" src="../../public/img/foto-dispenser-mujer-m.webp" alt="" />
+  <span class="badge pill promo" style="font-size:26px;padding:12px 22px">Dispenser en comodato</span>
+  <img class="logo" src="../../public/img/logo-blanco.png" alt="Upsala" />
+  <div class="right">
+    <div class="eyebrow">Dispenser frío / calor</div>
+    <h1>Agua fría y caliente, siempre lista</h1>
+    <div class="price">Alquiler mensual<b>$&nbsp;15.000</b>que se bonifica con tu consumo:</div>
+    <div class="tiers">
+      <div class="tier best"><span>6 o más bidones al mes</span><b>Gratis</b></div>
+      <div class="tier"><span>4 o 5 bidones</span><b>50% OFF</b></div>
+      <div class="tier"><span>2 o 3 bidones</span><b>$&nbsp;15.000</b></div>
+    </div>
+    <p class="note">Instalación sin cargo · Si falla, lo cambiamos · Sin contrato</p>
+  </div>
+  <div class="cta">
+    <div class="web"><small>Pedilo en</small>upsala.com.ar/dispenser</div>
+    <div class="wa"><svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.7-1-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.3-.6-.3zM12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.5 0-3-.4-4.3-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>11 3449-5488</div>
+  </div>
+</div>
+</body>
+</html>

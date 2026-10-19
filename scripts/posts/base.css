@@ -1,0 +1,24 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@600;700;800&display=swap");
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body { width: 1080px; height: 1350px; overflow: hidden; }
+body { font-family: Inter, "Segoe UI", system-ui, sans-serif; color: #0c2640; -webkit-font-smoothing: antialiased; }
+h1, h2, .display { font-family: Outfit, Inter, sans-serif; letter-spacing: -0.02em; }
+
+.card { position: relative; width: 1080px; height: 1350px; overflow: hidden; }
+
+.pill { display: inline-flex; align-items: center; gap: 12px; border-radius: 999px; font-weight: 700; }
+.promo { background: #f6b73c; color: #0c2640; padding: 16px 30px; font-size: 34px; font-family: Outfit, Inter, sans-serif; font-weight: 800; box-shadow: 0 14px 30px -12px rgba(0,0,0,0.45); }
+
+.cta {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 190px;
+  background: #0c2640; color: #fff;
+  display: flex; align-items: center; justify-content: space-between; padding: 0 64px;
+}
+.cta .web { font-family: Outfit, Inter, sans-serif; font-weight: 800; font-size: 46px; }
+.cta .web small { display: block; font-family: Inter, sans-serif; font-weight: 500; font-size: 22px; color: rgba(255,255,255,0.7); letter-spacing: 0; margin-bottom: 4px; }
+.cta .wa { display: flex; align-items: center; gap: 16px; background: linear-gradient(135deg, #2ddc6e, #128c7e); padding: 22px 30px; border-radius: 999px; font-weight: 700; font-size: 34px; }
+.cta .wa svg { width: 44px; height: 44px; fill: #fff; }
+
+.check { color: #1f9d55; }
+.cross { color: #9aa7b4; }
