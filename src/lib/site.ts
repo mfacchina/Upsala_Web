@@ -72,6 +72,21 @@ export const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? "227246129
  */
 export const META_DOMAIN_VERIFICATION = process.env.NEXT_PUBLIC_META_DOMAIN_VERIFICATION ?? "";
 
+/**
+ * Datos para que un cliente con saldo pendiente transfiera. Se muestran en /pagar/,
+ * que es la pagina a la que apunta el link de pago cargado en Equifax Mora Control
+ * (va impreso como QR en las cartas y como link en los SMS de intimacion).
+ *
+ * Es un CVU de Mercado Pago (entidad 000, clave 0003), no una cuenta bancaria: en el
+ * home banking va en el mismo campo que un CBU. Digitos verificadores validados.
+ * Si se deja vacio, la pagina muestra solo el alias.
+ */
+export const PAYMENT = {
+  alias: "AGUA.UPSALA.MP",
+  cvu: "0000003100038632504782",
+  holder: "SINGULAR ONE S.A.",
+};
+
 export const BASE_PATH = process.env.NEXT_PUBLIC_BASE_PATH ?? "";
 
 /** Prefija una ruta de /public con el basePath del sitio (hoy vacio). */
