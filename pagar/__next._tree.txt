@@ -1,0 +1,7 @@
+:HL["/_next/static/media/7b0b24f36b1a6d0b-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/media/e4af272ccee01ff0-s.p.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
+:HL["/_next/static/css/aa4e1df8572d65d0.css","style"]
+:HL["/img/logo-azul.png","image"]
+2:[["children",{"s":"__PAGE__","h":160}]]
+1:[["children",{"s":"pagar","h":96,"c":"$Q2"}]]
+0:{"b":"hX6rchnSEvcFC0J9wFaGF","t":{"t":{"s":"","h":80,"c":"$Q1"}}}
