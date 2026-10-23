@@ -12,7 +12,7 @@ mkdirSync(OUT, { recursive: true });
 const CHROME =
   process.env.CHROME_PATH ??
   ["C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe", "/usr/bin/google-chrome"].find(existsSync);
-const VARIANTS = ["central", "ventas", "confirmacion", "repartidor1", "repartidor2"];
+const VARIANTS = ["central", "ventas", "confirmacion", "repartidor1", "repartidor2", "grupo"];
 
 const browser = await puppeteer.launch({ executablePath: CHROME, headless: true, args: ["--allow-file-access-from-files"] });
 const files = [];
@@ -35,7 +35,7 @@ for (const [i, v] of VARIANTS.entries()) {
 const page = await browser.newPage();
 await page.setViewport({ width: 1100, height: 760, deviceScaleFactor: 1 });
 const rows = files
-  .map((f, i) => `<div class="row"><img class="sm" src="${pathToFileURL(f).href}"><div><b>${["Upsala Central", "Upsala Ventas", "Upsala Confirmación", "Upsala Repartidor 1", "Upsala Repartidor 2"][i]}</b><span>Mensaje de ejemplo…</span></div></div>`)
+  .map((f, i) => `<div class="row"><img class="sm" src="${pathToFileURL(f).href}"><div><b>${["Upsala Central", "Upsala Ventas", "Upsala Confirmación", "Upsala Repartidor 1", "Upsala Repartidor 2", "Upsala Reparto (grupo)"][i]}</b><span>Mensaje de ejemplo…</span></div></div>`)
   .join("");
 const bigs = files.map((f) => `<img class="lg" src="${pathToFileURL(f).href}">`).join("");
 const previewHtml = join(OUT, "vista-previa.html");
